@@ -12,7 +12,13 @@ api.config = {
 		url : "http://en.wikipedia.org/w/api.php"
 	},
 	twitter : {
-		url : "https://api.twitter.com/1.1/"
+		url : "https://api.twitter.com/1.1/",
+		app : {
+			consumer_key: 'fIpWbpGVowO5EEh8nw6zQwTZV',
+		    consumer_secret: 'lfxbCkA69jdCzQuhHF9Cewv3ZVuixGjUrS2CkPhOEVutsxRK9e',
+		    access_token_key: '182000225-2Y0gSsZYk14BA1M22sUKjFzHVxge94yUlsAYbSSa',
+		    access_token_secret: '9Ud2tVAIGhQJn7BSvwteoAPhH8Ro4xO67mBdW49Fo4CkD'
+		}
 	}
 };
 
@@ -136,7 +142,7 @@ api.ted.search = function(data,callback){ return(api.ted.createRequest('search',
 /*	Endpoints :									*/
 /*	-----------									*/
 /*												*/
-/*	api.wiki.extracts               			*/
+/*	api.wiki.extracts							*/
 /*	api.wiki.search								*/						
 /*												*/
 /*	Main structure :							*/
@@ -232,3 +238,56 @@ api.wiki.format.extract = function(data){
 		txt:txt
 	};
 };
+
+/*\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/*/
+/*												*/
+/*					TWITTER						*/
+/*												*/
+/*	Endpoints :									*/
+/*	-----------									*/
+/*												*/
+/*	api.twitter.search							*/					
+/*												*/
+/*	Main structure :							*/
+/*	----------------							*/
+/*												*/
+/*	fn(params,callback) 						*/
+/*												*/
+/*	Params :									*/
+/*	--------									*/
+/*	     										*/
+/*	q (string)									*/
+/*	count (int)									*/
+/*	result_type (string)						*/
+/*	include_rts (boolean)						*/
+/*												*/
+/*\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/*/
+
+twitter = require('twitter');
+var twit = new twitter(api.config.twitter.app);
+
+api.twitter={};
+
+api.twitter.search = function(data,callback){
+
+	if(!data.hasOwnProperty('q')){
+		callback({error:'NODATA'});
+		return false;
+	}
+
+	twit.search(data.q, data, function(data) {
+	    callback((data));
+	});
+}
+
+api.twitter.userTimeline = function(data,callback){
+
+	if(!data.hasOwnProperty('user_id')){
+		callback({error:'NODATA'});
+		return false;
+	}
+
+	twit.getUserTimeline(data, function(data) {
+	    callback((data));
+	});
+}

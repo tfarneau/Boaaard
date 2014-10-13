@@ -33,9 +33,17 @@ router.get('/', function(req, res) {
 	// 	res.json(data);
 	// })
 
-	api.wiki.extract({title:'cat'},function(data){
+	// api.wiki.extract({title:'cat'},function(data){
+	// 	res.json(data);
+	// })
+
+	api.twitter.userTimeline({user_id:'tfarneau'},function(data){
 		res.json(data);
 	})
+
+	// api.twitter.search({q:'coucou',count:20},function(data){
+	// 	res.json(data);
+	// })
 
 });
 
