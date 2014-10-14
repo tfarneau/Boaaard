@@ -25,7 +25,7 @@ var router = express.Router(); 				// get an instance of the express Router
 // test route to make sure everything is working (accessed at GET http://localhost:8080/api)
 router.get('/', function(req, res) {
 	
-	// api.ted.talks({id:1},function(data){
+	// api.ted.speakers({id:2},function(data){
 	// 	res.json(data);
 	// });
 
@@ -37,15 +37,32 @@ router.get('/', function(req, res) {
 	// 	res.json(data);
 	// })
 
-	api.twitter.userTimeline({user_id:'tfarneau'},function(data){
-		res.json(data);
-	})
+	// api.twitter.userTimeline({user_id:'tfarneau'},function(data){
+	// 	res.json(data);
+	// })
 
 	// api.twitter.search({q:'coucou',count:20},function(data){
 	// 	res.json(data);
 	// })
 
+	// api.freebase.image("al gore", {key:api.config.google.key}, function(r){
+	// 	res.json(r)
+	// });
+	
+	api.gfeed.findFeeds('al gore', function(r){
+		res.json(r);
+	});
 });
+
+router.get('/talk/search/:name', function(req, res) {
+
+	api.ted.talks({name:"*"+req.params.name+"*"},function(data){
+		res.json(data);
+	});
+
+});
+
+
 
 // more routes for our API will happen here
 

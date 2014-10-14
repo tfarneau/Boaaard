@@ -19,6 +19,9 @@ api.config = {
 		    access_token_key: '182000225-2Y0gSsZYk14BA1M22sUKjFzHVxge94yUlsAYbSSa',
 		    access_token_secret: '9Ud2tVAIGhQJn7BSvwteoAPhH8Ro4xO67mBdW49Fo4CkD'
 		}
+	},
+	google : {
+		key : "AIzaSyAhE4dy6-EBZ2uxj7ajkvf0YOn9OFK-8_c"
 	}
 };
 
@@ -263,7 +266,7 @@ api.wiki.format.extract = function(data){
 /*												*/
 /*\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/*/
 
-twitter = require('twitter');
+var twitter = require('twitter');
 var twit = new twitter(api.config.twitter.app);
 
 api.twitter={};
@@ -291,3 +294,27 @@ api.twitter.userTimeline = function(data,callback){
 	    callback((data));
 	});
 }
+
+/*\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/*/
+/*												*/
+/*					Freebase					*/
+/*												*/
+/*	https://www.npmjs.org/package/freebase		*/
+/*												*/
+/*\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/*/
+
+var freebase= require('freebase');
+
+api.freebase = freebase;
+
+/*\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\*/
+/*												 */
+/*					Google Feeds				 */
+/*												 */
+/* https://www.npmjs.org/package/google-feed-api */
+/*												 */
+/*\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\*/
+
+var gfeed = require('google-feed-api');
+
+api.gfeed = gfeed;
