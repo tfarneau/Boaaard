@@ -1,0 +1,85 @@
+// ----------------------
+// == Base/Form
+// ----------------------
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="date"],
+input[type="search"],
+textarea {
+    font-size: 1em;
+    font-family: $font1;
+    font-weight: 500;
+    color: #252525;
+    border: none;
+    outline: 0;
+    box-shadow: none;
+    background-color: $color3;
+    padding:0 20px;
+    height:60px;
+    box-sizing: border-box;
+    width: 100%;
+    @include placeholder($color-mixin-placeholder);
+    @include border-radius();
+}
+
+.f-select{
+    position: relative;
+    background-color: $color3;
+    z-index: 1;
+    @include border-radius();
+    select{
+        background: none;
+        height:60px;
+        padding:0 0 0 20px;
+        outline:0;
+        border:0 none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        width:100%;
+        @include border-radius();
+    }
+    &:before{
+        content:"\f078";
+        font-family: 'FontAwesome';
+        font-size:pxtoem(14);
+        color:#d3d3d3;
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 100%;
+        line-height: 60px;
+        padding: 0 pxtoem(14);
+        z-index: -1;
+        @include border-radius(0 4px 4px 0);
+    }
+}
+
+:-moz-any(.f-select):before {
+    background-color: inherit; /* this is necessary for overcome the caret default browser */
+    pointer-events: none; /* https://developer.mozilla.org/en-US/docs/Web/CSS/pointer-events  */
+    z-index: 1; /* this is necessary for overcome the pseudo element */
+}
+
+.w-50{
+    width:49%
+}
+
+.form-group{
+    display: block;
+    margin:14px 0;
+    width: 100%;
+    label{
+        margin:0 0 6px 10px;
+        display: block;
+    }
+    &.w-50{
+        @include inline-block();
+        @include calc(width, "50% - 10px");
+        &:nth-child(odd){
+            margin-right:14px;
+        }
+    }
+}
