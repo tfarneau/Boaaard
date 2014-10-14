@@ -1,0 +1,12 @@
+// =======================
+// Tools/Functions
+// =======================
+
+// Px to Em
+@function pxtoem($target, $context : 16){
+    @return ($target/$context)+0em;
+}
+// Px to Em
+@function pxtorem($target, $context : 16){
+    @return ($target/$context)+0rem;
+}
