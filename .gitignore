@@ -1,2 +1,4 @@
+.DS_Store
 client/node_modules/*
+server/node_modules/*
 client/.sass-cache/*
