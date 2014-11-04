@@ -8,12 +8,21 @@
   },
   "author": "",
   "license": "BSD-2-Clause",
-	"dependencies": {
-		"express": "~4.0.0",
-		"body-parser": "~1.0.1",
-    "freebase" : "*",
-    "google-feed-api" : "*",
-    "request" : "*",
-    "twitter" : "*"
-	}
+  "dependencies": {
+    "express": "~4.0.0",
+    "body-parser": "~1.0.1",
+    "freebase": "*",
+    "google-feed-api": "*",
+    "request": "*",
+    "twitter": "*",
+    "fb" : "*",
+    "MD5": "*",
+    "socket.io" : "*"
+  },
+  "devDependencies": {
+    "gulp": "~3.8.8",
+    "gulp-nodemon": "~1.0.4",
+    "gulp-jshint": "~1.8.5",
+    "gulp-livereload": "~2.1.1"
+  }
 }
