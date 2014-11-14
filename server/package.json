@@ -17,7 +17,9 @@
     "twitter": "*",
     "fb" : "*",
     "MD5": "*",
-    "socket.io" : "*"
+    "socket.io" : "*",
+    "http" : "*",
+    "random-word" : "*"
   },
   "devDependencies": {
     "gulp": "~3.8.8",
