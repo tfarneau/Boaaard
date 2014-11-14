@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+	<title>Party Player</title>
+	<meta name="description" content="">
+
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+</head>
+<body>
+	
+	<h2 class="status"></h2>
+	<form action="#" id="roomjoin">
+		<input type="text" id="roomname" placeholder="room id">
+		<input type="submit" value="join">
+	</form>
+
+	<div class="remote">
+		<button class="play">PLAY</button>
+		<button class="pause">PAUSE</button>
+	</div>
+
+	<div class="log"></div>
+
+  <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+  <script>
+  	$('.remote').hide();
+  	var socket = io.connect('localhost:3000');
+  	var roomid=null;
+
+	$('#roomjoin').submit(function(e){
+
+		socket.emit('connectRemote',$('#roomname').val())
+		e.preventDefault();
+		return false;
+	})
+
+	socket.on('connected',function(id){
+		roomid=id;
+
+		$('.status').text('connected !');
+
+		$('.remote').show();
+		$('#roomjoin').hide();
+	});
+
+	$('.remote .play').on('click',function(){
+		socket.emit('sendControl',{
+			control : "play",
+			roomid : roomid
+		});
+	});
+
+	$('.remote .pause').on('click',function(){
+		socket.emit('sendControl',{
+			control : "pause",
+			roomid : roomid
+		});
+	});
+
+  </script>
+
+</body>
+</html>
