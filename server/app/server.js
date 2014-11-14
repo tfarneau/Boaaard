@@ -6,6 +6,8 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var request = require('request');
 
+var validator = require('validator');
+
 // Express + SocketIO
 var port = 3000;
 var app = express();
@@ -27,11 +29,23 @@ var extractor = require('./api/extractor.js');
 var remote = require('./remote/remote.js');
 remote.init(server);
 
-
 // ROUTES FOR OUR API
 // ==================
 
 var router = express.Router();
+
+// ROUTES : BOARDS
+// ===============
+
+var boardmanager = require('./board/boardmanager.js');
+
+router.post('/boards', function(req, res){ 
+	
+	var r = boardmanager.saveboard(req.body,function(r){
+		res.json(r);
+	});
+
+});
 
 // ROUTES : BLOCKS
 // ===============
