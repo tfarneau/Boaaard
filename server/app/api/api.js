@@ -283,7 +283,7 @@ api.twitter=twit;
 /*												*/
 /*\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/*/
 
-var freebase= require('freebase');
+var freebase = require('freebase');
 
 api.freebase = freebase;
 

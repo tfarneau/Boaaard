@@ -2,6 +2,7 @@ var extractor = module.exports = {};
 var request = require('request');
 var api = require('./api.js');
 var cache = require('../cache/cache.js');
+var fs = require('fs');
 
 // BLOCKS CREATOR
 
@@ -230,105 +231,22 @@ extractor.creator.createFacebookInfos = function(data,callback){
 		id:data.q
 	};
 
-	console.log(api.config.facebook);
-
-	api.facebook.api('oauth/access_token', api.config.facebook, function(data){
-		callback(data);
-
-		// '/'+d.id+'/feed'
+	api.facebook.api('/'+d.id,function(data2){
+		callback(data2);
 	});
 
 }
 
-// FROM TED
+var blocksdatapath = './data/blocks/';
+extractor.creator.getContentBlock = function(data,callback){
 
-extractor.creator.createSpeakerBlock = function(data,callback){
+	var path = blocksdatapath+data.type+"/"+data.q+".json";
 
-	var b = {
-		title : data.title,
-		description : data.description,
-		icon : data.icon
-	};
-
-	api.ted.speakers({id:data.id}, function(r){
-
-		b.content=r.speaker;
-		api.freebase.image(r.speaker.firstname+" "+r.speaker.lastname, {}, function(r2){
-			b.content.img=r2;
-			callback(b);
+	if(fs.existsSync(path)){
+		fs.readFile(path, "utf-8", function read(err, data){
+			callback(JSON.parse(data.toString()));
 		});
-
-	});
-
-}
-
-extractor.creator.createQuotesBlock = function(data,callback){
-
-	var b = {
-		title : data.title,
-		description : data.description,
-		icon : data.icon
-	};
-
-	api.ted.quotes({id:data.id}, function(r){
-		b.content=r;
-		callback(b);
-	});
-
-}
-
-extractor.extractTags = function(tags){
-	
-	var _tags = [];
-	for(var i in tags){
-		if(!(tags[i].tag.indexOf('TED') > -1))
-			_tags.push(tags[i].tag);
+	}else{
+		callback({status:false,error:"NOT_FOUND"});
 	}
-	return _tags;
-	
 }
-
-extractor.getBlocksFromTed = function(id,callback){
-
-	api.ted.talks({id:id}, function(r){
-
-		var blocks = [];
-
-		if(r.hasOwnProperty('talk')){
-
-			for(var i in r.talk.speakers){
-				blocks.push('/block/speaker/'+r.talk.speakers[i].speaker.id);
-				blocks.push('/block/quotes/'+r.talk.speakers[i].speaker.id);
-				blocks.push('/block/twitter/'+r.talk.speakers[i].speaker.name);
-				blocks.push('/block/news/'+r.talk.speakers[i].speaker.name);
-			}
-
-			var tags = extractor.extractTags(r.talk.tags);
-
-			blocks.push('/block/wiki/'+tags[0]);
-			blocks.push('/block/wiki/'+tags[1]);
-			blocks.push('/block/wiki/'+tags[2]);
-		}
-
-		callback(blocks);
-	});
-
-}
-
-extractor.getTedInfos = function(id,callback){
-
-	api.ted.talks({id:id}, function(r){
-
-		// r.tags = extractor.extractTags(r.talk.tags);
-		// extractor.getPeopleInfos(r.talk.speakers[0].speaker.name, function(r2){
-		// 	r.speaker=r2;
-
-		// 	extractor.getFeeds(r.talk.speakers[0].speaker.name, function(r3){
-		// 		r.feed=r3;
-		// 		callback(r);
-		// 	})
-		// })
-		
-	});
-
-};

@@ -39,9 +39,18 @@ var router = express.Router();
 
 var boardmanager = require('./board/boardmanager.js');
 
-router.post('/boards', function(req, res){ 
+router.get('/validate_youtube/:video_id', function(req, res){ 
 	
-	var r = boardmanager.saveboard(req.body,function(r){
+	// console.log(req.param('video_id'));
+	var r = boardmanager.validateYT(req.param('video_id'),function(r){
+		res.json(r);
+	});
+
+});
+
+router.get('/boards/:slug', function(req, res){ 
+	
+	var r = boardmanager.getBoard(req.param('slug'),function(r){
 		res.json(r);
 	});
 
@@ -51,7 +60,7 @@ router.post('/boards', function(req, res){
 // ===============
 
 router.get('/block', function(req, res) {
-	res.send('/block/news/query:string<br/>/block/wiki/query:string<br/>/block/twitter/userTimeline/username:string<br/>/block/twitter/search/query:string<br/><br/>/block/speaker/id:int<br/>/block/quotes/id:int<br/>');
+	res.send('/block/news/query:string<br/>/block/wiki/query:string<br/>/block/twitter/userTimeline/username:string<br/>/block/twitter/search/query:string<br/>/block/facebook/infos/page_id:int');
 });
 
 router.get('/block/wiki/:q', function(req, res) {
@@ -62,7 +71,7 @@ router.get('/block/wiki/:q', function(req, res) {
 		type : "wiki",
 		q : req.params.q
 	}, function(data){
-		res.json(data);
+		res.json({status:true,data:data});
 	});
 
 });
@@ -72,10 +81,10 @@ router.get('/block/twitter/userTimeline/:q', function(req, res) {
 	extractor.creator.createTwitterUserTimeline({ 
 		title : req.params.q+" twitter",
 		description : req.params.q+"'s twitter stream",
-		type : "twitter",
+		type : "twitter/userTimeline",
 		q : req.params.q
 	}, function(data){
-		res.json(data);
+		res.json({status:true,data:data});
 	});
 
 });
@@ -85,10 +94,10 @@ router.get('/block/twitter/search/:q', function(req, res) {
 	extractor.creator.createTwitterSearch({ 
 		title : req.params.q+" twitter search",
 		description : req.params.q+"'s twitter search",
-		type : "twitter",
+		type : "twitter/search",
 		q : req.params.q
 	}, function(data){
-		res.json(data);
+		res.json({status:true,data:data});
 	});
 
 });
@@ -98,23 +107,71 @@ router.get('/block/twitter/userInfos/:q', function(req, res) {
 	extractor.creator.createTwitterUserInfos({ 
 		title : req.params.q+" twitter account",
 		description : req.params.q+"'s twitter account",
-		type : "twitter",
+		type : "twitter/userInfos",
 		q : req.params.q
 	}, function(data){
-		res.json(data);
+		res.json({status:true,data:data});
 	});
 
 });
 
-router.get('/block/facebook/feed/:q', function(req, res) {
+router.get('/block/facebook/infos/:q', function(req, res) {
 
 	extractor.creator.createFacebookInfos({ 
-		title : "Facebook feed",
-		description : "Facebook feed",
-		type : "twitter",
+		title : "Facebook infos",
+		description : "Facebook infos",
+		type : "facebook/infos",
 		q : req.params.q
 	}, function(data){
-		res.json(data);
+		res.json({status:true,data:data});
+	});
+
+});
+
+router.get('/block/news/:q', function(req, res) {
+
+	extractor.creator.createNewsBlock({ 
+		title : "News about "+req.params.q,
+		description : "Some news about "+req.params.q+" ?",
+		type : "news",
+		q : req.params.q
+	}, function(data){
+		res.json({status:true,data:data});
+	});
+
+});
+
+// blocks perso
+
+router.get('/block/content/:q', function(req, res) {
+
+	extractor.creator.getContentBlock({ 
+		type : "content",
+		q : req.params.q
+	}, function(data){
+		res.json({status:true,data:data});
+	});
+
+});
+
+router.get('/block/image/:q', function(req, res) {
+
+	extractor.creator.getContentBlock({ 
+		type : "image",
+		q : req.params.q
+	}, function(data){
+		res.json({status:true,data:data});
+	});
+
+});
+
+router.get('/block/link/:q', function(req, res) {
+
+	extractor.creator.getContentBlock({ 
+		type : "link",
+		q : req.params.q
+	}, function(data){
+		res.json({status:true,data:data});
 	});
 
 });
