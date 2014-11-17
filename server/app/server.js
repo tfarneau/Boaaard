@@ -56,6 +56,14 @@ router.get('/boards/:slug', function(req, res){
 
 });
 
+router.post('/boards', function(req, res){ 
+	
+	var r = boardmanager.saveboard(req.body,function(r){
+		res.json(r);
+	});
+
+});
+
 // ROUTES : BLOCKS
 // ===============
 

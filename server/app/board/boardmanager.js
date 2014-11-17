@@ -84,12 +84,10 @@ boardmanager.validator = function(board){
 		if(board.blocks.length>=1){
 			for(var i in board.blocks){
 				if(board.blocks[i].hasOwnProperty('data')){
+
 					if(!board.blocks[i].hasOwnProperty("type")){
 						r.push("NO_BLOCK_TYPE");
 					}
-
-					// Set type
-					board.blocks[i].data.type=board.blocks[i].type;
 
 					if(!board.blocks[i].data.hasOwnProperty("name")){
 						r.push("NO_DATA_BLOCK_NAME");
@@ -100,6 +98,28 @@ boardmanager.validator = function(board){
 					if(!board.blocks[i].data.hasOwnProperty("data")){
 						r.push("NO_DATA_BLOCK_DATA");
 					}
+
+					// SIZE
+					if(!board.blocks[i].data.hasOwnProperty("size_x")){
+						r.push("NO_DATA_SIZE_X");
+					}
+					if(!board.blocks[i].data.hasOwnProperty("size_y")){
+						r.push("NO_DATA_SIZE_Y");
+					}
+					if(!board.blocks[i].data.hasOwnProperty("pos_x")){
+						r.push("NO_DATA_POS_X");
+					}
+					if(!board.blocks[i].data.hasOwnProperty("pos_y")){
+						r.push("NO_DATA_POS_Y");
+					}
+
+					// Set data
+					board.blocks[i].data.type=board.blocks[i].type;
+					board.blocks[i].pos_x=board.blocks[i].data.pos_x;
+					board.blocks[i].pos_y=board.blocks[i].data.pos_y;
+					board.blocks[i].size_x=board.blocks[i].data.size_x;
+					board.blocks[i].size_y=board.blocks[i].data.size_y;
+
 				}else{
 					if(!board.blocks[i].hasOwnProperty("type")){
 						r.push("NO_BLOCK_TYPE");
@@ -113,6 +133,21 @@ boardmanager.validator = function(board){
 					if(!board.blocks[i].hasOwnProperty("var")){
 						r.push("NO_BLOCK_VAR");
 					}
+
+					// SIZE
+					if(!board.blocks[i].hasOwnProperty("size_x")){
+						r.push("NO_SIZE_X");
+					}
+					if(!board.blocks[i].hasOwnProperty("size_y")){
+						r.push("NO_SIZE_Y");
+					}
+					if(!board.blocks[i].hasOwnProperty("pos_x")){
+						r.push("NO_POS_X");
+					}
+					if(!board.blocks[i].hasOwnProperty("pos_y")){
+						r.push("NO_POS_Y");
+					}
+
 				}
 			}
 		}else{
