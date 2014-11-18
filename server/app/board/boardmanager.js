@@ -10,6 +10,7 @@ var fs = require('fs');
 var md5 = require('md5');
 var blockmanager = require('./blockmanager.js');
 var boards_dir = './data/boards/';
+var directorymanager = require('./directorymanager.js');
 
 var boardmanager = module.exports = {};
 
@@ -206,9 +207,15 @@ boardmanager.saveBlocks = function(board,cb){
 
 boardmanager.transformdata = function(board,cb){
 	board.infos.video_id=boardmanager.extractIdFromUrl(board.infos.url);
+	board.infos.slug=slug(board.infos.name);
+	
 	boardmanager.saveBlocks(board,function(status,board){
-		cb(board);
-	})
+		boardmanager.validateYT(board.infos.video_id,function(data){
+			board.video_infos=data.data.items[0].snippet;
+			cb(board);
+		})
+	});
+
 }
 
 // SAVER
@@ -229,10 +236,11 @@ boardmanager.saveboard = function(board,callback){
 			r.data=board;
 
 			boardmanager.files.save(board,function(status){
+
 				if(!status){
 					r.status = "NOT_ADDED_FILE_PROBLEM";
 				}else{
-					r.status = true;
+					r.status = true; // directorymanager
 				}
 
 				callback(r);
@@ -257,11 +265,14 @@ boardmanager.files.save = function(data,callback){
 	var end_date;
 
 	var path = boards_dir+fileName;
+
+	directorymanager.addBoard(data);
 	if (!fs.existsSync(path)) {
 	    fs.writeFile(path, JSON.stringify(data), function(err) {
 		    if(err) {
 		        callback(false);
 		    } else {
+
 		        callback(true);
 		    }
 		}); 

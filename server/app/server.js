@@ -48,6 +48,7 @@ var router = express.Router();
 // ===============
 
 var boardmanager = require('./board/boardmanager.js');
+var directorymanager = require('./board/directorymanager.js');
 
 router.get('/validate_youtube/:video_id', function(req, res){ 
 	
@@ -60,11 +61,20 @@ router.get('/validate_youtube/:video_id', function(req, res){
 
 router.get('/boards/:slug', function(req, res){ 
 	
-	var r = boardmanager.getBoard(req.param('slug'),function(r){
+	var r = boardmanager.getBoards(function(r){
 		res.json(r);
 	});
 
 });
+
+router.get('/boards', function(req, res){ 
+	
+	var r = directorymanager.getBoards(function(r){
+		res.json(r);
+	});
+
+});
+
 
 router.post('/boards', function(req, res){ 
 	

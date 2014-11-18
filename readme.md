@@ -41,4 +41,8 @@ Custom block (l'id est donné dans les infos sur le board)
 **/board/slug:string (GET)**
 Récupère des infos sur un board
 
-**/board (POST)**
+**/board (POST)** 
+Ajoute un board
+
+**/board (GET)**
+Récupère une liste de boards
