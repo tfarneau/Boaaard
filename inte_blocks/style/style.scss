@@ -1,0 +1,136 @@
+$size_onecol : 320px;
+
+body{
+	width: 100%;
+}
+
+.blocks{
+	width: 960px;
+	position: relative;
+	margin: auto;
+}
+
+.block{
+	min-width: $size_onecol;
+	height: $size_onecol;
+	position:absolute;
+	overflow:hidden;
+	box-sizing: border-box;
+}
+
+/////////////////
+// GENERIC STYLES
+/////////////////
+
+.block{
+	.block_title{
+		font-family: "Source Sans pro";
+		text-transform: uppercase;
+		font-size: 15px;
+		color:#FFF;
+	}
+	.block_container{
+		padding:30px;
+		position: relative;
+		z-index:50;
+	}
+
+	> div{
+		z-index:10;
+	}
+}
+
+//////////////////////
+// BLOCKS TYPES STYLES
+//////////////////////
+
+.block.type_content{
+	background-color: #FAFAFA;
+}
+
+.block.type_twitteruser{
+	.gradient{
+		position: absolute;
+		width: 200%;
+		top:-100%;
+		right:-100%;
+		height:200%;
+		background: -webkit-radial-gradient(center, ellipse cover, #4ad9e7 0%,#adeca5 100%); /* Chrome10+,Safari5.1+ */
+
+	}
+}
+
+.block.type_image{
+	.image{
+		width: 100%;
+		height: 100%;
+		background-position: center center;
+		background-size: cover;
+	}
+}
+
+.block.type_twitterfeed{
+	background-color: #BDF1F7;
+}
+
+.block.type_rssfeed{
+	background-color: #FFD5A7;
+}
+
+.block.type_link{
+	background-color: #868686;
+}
+
+.block.type_wikipedia{
+	background-color: #F0F0F0;
+}
+
+
+.type_wikipedia,.type_content{
+	.block_title{
+		color:#D1D1D1;
+	}
+}
+// Blocks types positions
+
+.block.type_content{
+	width: $size_onecol*2;
+	top: 0;
+	left: 0;
+}
+
+.block.type_twitteruser{
+	width: $size_onecol;
+	top: 0;
+	left: $size_onecol*2;
+}
+
+.block.type_image{
+	width: $size_onecol;
+	top: $size_onecol;
+	left: 0;
+}
+
+.block.type_twitterfeed{
+	width: $size_onecol;
+	top: $size_onecol;
+	left: $size_onecol;
+}
+
+.block.type_rssfeed{
+	width: $size_onecol;
+	top: $size_onecol;
+	left: $size_onecol*2;
+}
+
+.block.type_link{
+	width: $size_onecol;
+	top: $size_onecol*2;
+	left: 0;
+}
+
+.block.type_wikipedia{
+	width: $size_onecol*2;
+	top: $size_onecol*2;
+	left: $size_onecol;
+}

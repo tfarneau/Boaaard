@@ -6,11 +6,7 @@ remote.remotes = [];
 remote.io = {};
 
 remote.init = function(server){
-	
-	console.log("Starting socket server");
-	remote.io = require('socket.io')(server);
-	remote.io.on('connection',this.listen);
-
+	remote.io = server;
 };
 
 remote.listen = function(socket){ 
@@ -25,12 +21,10 @@ remote.listen = function(socket){
 		socket.emit('remoteId',that.remoteId);
 		socket.join(that.remoteId);
 
-		console.log(remote.remotes);
 	});
 
 	socket.on('connectRemote',function(id){
 
-		console.log("Connecting to "+id);
 		socket.join(id);
 		remote.io.sockets.in(id).emit('connected',id);
 

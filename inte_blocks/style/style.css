@@ -1,0 +1,94 @@
+body {
+  width: 100%; }
+
+.blocks {
+  width: 960px;
+  position: relative;
+  margin: auto; }
+
+.block {
+  min-width: 320px;
+  height: 320px;
+  position: absolute;
+  overflow: hidden;
+  box-sizing: border-box; }
+
+.block .block_title {
+  font-family: "Source Sans pro";
+  text-transform: uppercase;
+  font-size: 15px;
+  color: #FFF; }
+.block .block_container {
+  padding: 30px;
+  position: relative;
+  z-index: 50; }
+.block > div {
+  z-index: 10; }
+
+.block.type_content {
+  background-color: #FAFAFA; }
+
+.block.type_twitteruser .gradient {
+  position: absolute;
+  width: 200%;
+  top: -100%;
+  right: -100%;
+  height: 200%;
+  background: -webkit-radial-gradient(center, ellipse cover, #4ad9e7 0%, #adeca5 100%);
+  /* Chrome10+,Safari5.1+ */ }
+
+.block.type_image .image {
+  width: 100%;
+  height: 100%;
+  background-position: center center;
+  background-size: cover; }
+
+.block.type_twitterfeed {
+  background-color: #BDF1F7; }
+
+.block.type_rssfeed {
+  background-color: #FFD5A7; }
+
+.block.type_link {
+  background-color: #868686; }
+
+.block.type_wikipedia {
+  background-color: #F0F0F0; }
+
+.type_wikipedia .block_title, .type_content .block_title {
+  color: #D1D1D1; }
+
+.block.type_content {
+  width: 640px;
+  top: 0;
+  left: 0; }
+
+.block.type_twitteruser {
+  width: 320px;
+  top: 0;
+  left: 640px; }
+
+.block.type_image {
+  width: 320px;
+  top: 320px;
+  left: 0; }
+
+.block.type_twitterfeed {
+  width: 320px;
+  top: 320px;
+  left: 320px; }
+
+.block.type_rssfeed {
+  width: 320px;
+  top: 320px;
+  left: 640px; }
+
+.block.type_link {
+  width: 320px;
+  top: 640px;
+  left: 0; }
+
+.block.type_wikipedia {
+  width: 640px;
+  top: 640px;
+  left: 320px; }

@@ -27,7 +27,17 @@ var extractor = require('./api/extractor.js');
 
 // REMOTE
 var remote = require('./remote/remote.js');
-remote.init(server);
+
+// CHAT
+var chat = require('./chat/chat.js');
+
+var ioserver = require('socket.io')(server);
+remote.init(ioserver);
+chat.init(ioserver);
+
+
+ioserver.on('connection',remote.listen);
+ioserver.on('connection',chat.listen);
 
 // ROUTES FOR OUR API
 // ==================
