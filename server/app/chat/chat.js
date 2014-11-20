@@ -17,6 +17,8 @@ chat.listen = function(socket){
 	var that = this;
 
 	socket.on('connectToChat',function(data){
+		console.log("CONNECT TO CHAT");
+		console.log("slug : "+data.slug);
 		socket.join(data.slug);
 		chat.files.get(data.slug,function(fdata){
 			var send = {
@@ -29,17 +31,23 @@ chat.listen = function(socket){
 	});
 
 	socket.on('sendMessageToChat',function(data){
-		chat.io.sockets.in(data.slug).emit('newMessageToChat',data);
+		console.log("NEW MESSAGE");
+		console.log("slug : "+data.slug);
+
+		var data2 = {
+			message : data.message,
+			slug : data.slug,
+			pseudo : data.pseudo
+		};
+
+		chat.io.sockets.in(data.slug).emit('newMessageToChat',data2);
+
 		chat.files.save({
 			slug:data.slug,
 			message:data.message,
 			pseudo:data.pseudo
 		});
 	});
-
-	// socket.on('disconnect', function(){
- //        chat.io.sockets.in(slug).emit('disconnectFromChat',slug);
- //    });
 
 }	
 

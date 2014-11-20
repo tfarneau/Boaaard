@@ -1,16 +1,85 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" ng-app="App">
 <head>
 	<meta charset="UTF-8">
 	<title>Blocks</title>
 	<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="style/normalize.css">
 	<link rel="stylesheet" href="style/style.css">
+	<link rel="stylesheet" href="style/angular-gridster.min.css">
+	<link rel="stylesheet" href="style/perfect-scrollbar.min.css">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+	<script src="scripts/angular-gridster.min.js"></script>
+	<script src="scripts/ng-include.js"></script>
+	<script src="scripts/svg-injector.min.js"></script>
+
+
+	<script src="scripts/perfect-scrollbar.min.js"></script>
+	<script src="scripts/jquery.mousewheel.js"></script>
+	<script src="scripts/angular-perfect-scrollbar.js"></script>
 
 </head>
-<body>
-	<section class="blocks">
+<body ng-controller="MainCtrl">
 
+	<svg height="150" width="400" version="1.1" baseProfile="full" xmlns="http://www.w3.org/2000/svg" style="position:absolute; z-index:-1;">
+	    <defs>
+	        <linearGradient id="gradient" x1="100%" y1="0%" x2="0%" y2="0%">
+	        <stop offset="0%" style="stop-color:rgb(255,156,0);stop-opacity:1" />
+	        <stop offset="100%" style="stop-color:rgb(255,57,0);stop-opacity:1" />
+	        </linearGradient>
+	    </defs>
+	</svg>
+
+	<button ng-click="addBlockOpened = !addBlockOpened">ADD A BLOCK ESH</button>
+	<button ng-click="exportBoard()">EXPORT</button>
+
+	<section class="addblock" ng-class="{'opened': addBlockOpened}">
+
+		<section class="icons_container">
+			<div class="icon_container" ng-click="addBlock('type_twitteruser')">
+				<img src="images/round.svg" alt="" class="icon gradient icon-slarge">
+				<img src="images/twitter.svg" alt="" class="icon gradient mini">
+				<span class="icon_title">Twitter account</span>
+			</div>
+			<div class="icon_container" ng-click="addBlock('type_wikipedia')">
+				<img src="images/round.svg" alt="" class="icon gradient icon-slarge">
+				<img src="images/wikipedia.svg" alt="" class="icon gradient mini">
+				<span class="icon_title">Wikipedia article</span>
+			</div>
+			<div class="icon_container" ng-click="addBlock('type_content')">
+				<img src="images/round.svg" alt="" class="icon gradient icon-slarge">
+				<img src="images/pencil.svg" alt="" class="icon gradient mini">
+				<span class="icon_title">Custom text</span>
+			</div>
+			<div class="icon_container" ng-click="addBlock('type_link')">
+				<img src="images/round.svg" alt="" class="icon gradient icon-slarge">
+				<img src="images/link.svg" alt="" class="icon gradient mini">
+				<span class="icon_title">Link</span>
+			</div>
+			<div class="icon_container" ng-click="addBlock('type_image')">
+				<img src="images/round.svg" alt="" class="icon gradient icon-slarge">
+				<img src="images/picture.svg" alt="" class="icon gradient mini">
+				<span class="icon_title">Picture</span>
+			</div>
+			<div class="icon_container" ng-click="addBlock('type_rssfeed')">
+				<img src="images/round.svg" alt="" class="icon gradient icon-slarge">
+				<img src="images/twitter.svg" alt="" class="icon gradient mini">
+				<span class="icon_title">RSS feed</span>
+			</div>
+		</section>
+
+	</section>
+	<section class="blocks" gridster="gridsterOpts">
+    	<article gridster-item="blockMap" ng-repeat="block in blocks" class="block" block ng-class="{'isEditing': block.isEdit}">
+    		<section class="block_wrapper">
+    			<ng-include src="getContentUrl(block.type)"/>
+    		</section>
+    	</article>
+    </section>
+
+	<!-- <section class="blocks sample">
 		<article class="block type_content">
 			<section class="block_container">
 				<header class="block_title">Editor's article</header>
@@ -58,7 +127,9 @@
 			</section>
 		</article>
 
+	</section> -->
 
-	</section>
+	<script src="scripts/app.js"></script>
+
 </body>
 </html>

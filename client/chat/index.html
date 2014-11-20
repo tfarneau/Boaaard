@@ -55,6 +55,7 @@
 
 		socket.emit('connectToChat',send);
 		e.preventDefault();
+		
 		return false;
 
 	});
@@ -77,6 +78,7 @@
 
 	socket.on('oldMessages',function(data){
 
+		console.log("OLDMESSAGE")
 		$('#joinChat').hide();
 		$('.chat').show();
 

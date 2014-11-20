@@ -70,10 +70,8 @@ cache.write = function(block,data,content,validity,callback){
 
 	var fileName = cache.createFilename(block,data);
 
-	var data_f = {
-		__cache_end_date:end_date,
-		content:content
-	};
+	var data_f = content;
+	data_f.__cache_end_date = end_date;
 
 	fs.writeFile(tmp_dir+fileName, JSON.stringify(data_f), function(err) {
 	    if(err) {

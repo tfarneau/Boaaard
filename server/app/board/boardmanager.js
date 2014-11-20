@@ -55,7 +55,7 @@ boardmanager.validateYT = function(id,cb){
 // boardmanager.validateYT(board.infos.video_id);
 
 boardmanager.validator = function(board){
-
+	console.log(board);
 	var r=[];
 
 	// Infos validation
@@ -69,11 +69,11 @@ boardmanager.validator = function(board){
 		if(!board.infos.hasOwnProperty("name")){
 			r.push("NO_INFOS_NAME");
 		}
+		if(!board.infos.hasOwnProperty("description")){
+			r.push("NO_INFOS_DESCRIPTION");
+		}
 		if(!board.infos.hasOwnProperty("owner_email")){
 			r.push("NO_INFOS_EMAIL");
-		}
-		if(!board.infos.hasOwnProperty("chat_enabled")){
-			r.push("NO_INFOS_CHAT");
 		}
 	}
 

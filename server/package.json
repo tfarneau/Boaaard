@@ -19,7 +19,13 @@
     "MD5": "*",
     "socket.io" : "*",
     "http" : "*",
-    "random-word" : "*"
+    "random-word" : "*",
+    "youtube-api" : "*",
+    "slug" : "*",
+    "uniqid" : "*",
+    "md5" : "*",
+    "random-word" : "*",
+    "validator" : "*"
   },
   "devDependencies": {
     "gulp": "~3.8.8",

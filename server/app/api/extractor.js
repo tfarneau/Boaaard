@@ -119,6 +119,10 @@ extractor.creator.createTwitterUserInfos = function(data,callback){
 
 			api.twitter.showUser(data.q, function(data2){
 
+				if(data.hasOwnProperty('profile_image_url')){
+					data2.profile_image_url=data2.profile_image_url.replace('_normal','');
+				}
+
 				cache.write(_cacheinfos.block,_cacheinfos.value,data2,_cacheinfos.timeValid,function(r){});
 
 				b.fromCache=false;

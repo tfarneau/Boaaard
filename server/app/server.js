@@ -39,6 +39,15 @@ chat.init(ioserver);
 ioserver.on('connection',remote.listen);
 ioserver.on('connection',chat.listen);
 
+// ENABLE CORS
+
+app.all('/*', function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With,Content-Type");
+  res.header("Access-Control-Allow-Methods", "GET, POST","PUT");
+  next(); 
+});
+
 // ROUTES FOR OUR API
 // ==================
 
@@ -78,6 +87,7 @@ router.get('/boards', function(req, res){
 
 router.post('/boards', function(req, res){ 
 	
+	var data = req.body;
 	var r = boardmanager.saveboard(req.body,function(r){
 		res.json(r);
 	});
