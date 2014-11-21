@@ -70,7 +70,7 @@ router.get('/validate_youtube/:video_id', function(req, res){
 
 router.get('/boards/:slug', function(req, res){ 
 	
-	var r = boardmanager.getBoards(function(r){
+	var r = boardmanager.getBoard(req.params.slug,function(r){
 		res.json(r);
 	});
 

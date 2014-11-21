@@ -55,106 +55,105 @@ boardmanager.validateYT = function(id,cb){
 // boardmanager.validateYT(board.infos.video_id);
 
 boardmanager.validator = function(board){
-	console.log(board);
 	var r=[];
 
 	// Infos validation
 
-	if(!board.hasOwnProperty("infos")){
-		r.push("NO_INFOS");
-	}else{
-		if(!board.infos.hasOwnProperty("url")){
-			r.push("NO_INFOS_URL");
-		}
-		if(!board.infos.hasOwnProperty("name")){
-			r.push("NO_INFOS_NAME");
-		}
-		if(!board.infos.hasOwnProperty("description")){
-			r.push("NO_INFOS_DESCRIPTION");
-		}
-		if(!board.infos.hasOwnProperty("owner_email")){
-			r.push("NO_INFOS_EMAIL");
-		}
-	}
+	// if(!board.hasOwnProperty("infos")){
+	// 	r.push("NO_INFOS");
+	// }else{
+	// 	if(!board.infos.hasOwnProperty("url")){
+	// 		r.push("NO_INFOS_URL");
+	// 	}
+	// 	if(!board.infos.hasOwnProperty("name")){
+	// 		r.push("NO_INFOS_NAME");
+	// 	}
+	// 	if(!board.infos.hasOwnProperty("description")){
+	// 		r.push("NO_INFOS_DESCRIPTION");
+	// 	}
+	// 	if(!board.infos.hasOwnProperty("owner_email")){
+	// 		r.push("NO_INFOS_EMAIL");
+	// 	}
+	// }
 
 	// Blocks validation
 
-	if(!board.hasOwnProperty("blocks")){
-		r.push("NO_BLOCKS");
-	}else{
-		if(board.blocks.length>=1){
-			for(var i in board.blocks){
-				if(board.blocks[i].hasOwnProperty('data')){
+	// if(!board.hasOwnProperty("blocks")){
+	// 	r.push("NO_BLOCKS");
+	// }else{
+	// 	if(board.blocks.length>=1){
 
-					if(!board.blocks[i].hasOwnProperty("type")){
-						r.push("NO_BLOCK_TYPE");
-					}
+	// 		for(var i in board.blocks){
 
-					if(!board.blocks[i].data.hasOwnProperty("name")){
-						r.push("NO_DATA_BLOCK_NAME");
-					}
-					if(!board.blocks[i].data.hasOwnProperty("description")){
-						r.push("NO_DATA_BLOCK_DESC");
-					}
-					if(!board.blocks[i].data.hasOwnProperty("data")){
-						r.push("NO_DATA_BLOCK_DATA");
-					}
+	// 			if(board.blocks[i].type=="content" || board.blocks[i].type=="image" || board.blocks[i].type=="link"){
 
-					// SIZE
-					if(!board.blocks[i].data.hasOwnProperty("size_x")){
-						r.push("NO_DATA_SIZE_X");
-					}
-					if(!board.blocks[i].data.hasOwnProperty("size_y")){
-						r.push("NO_DATA_SIZE_Y");
-					}
-					if(!board.blocks[i].data.hasOwnProperty("pos_x")){
-						r.push("NO_DATA_POS_X");
-					}
-					if(!board.blocks[i].data.hasOwnProperty("pos_y")){
-						r.push("NO_DATA_POS_Y");
-					}
+	// 				if(!board.blocks[i].hasOwnProperty("type")){
+	// 					r.push("NO_BLOCK_TYPE");
+	// 				}
 
-					// Set data
-					board.blocks[i].data.type=board.blocks[i].type;
-					board.blocks[i].pos_x=board.blocks[i].data.pos_x;
-					board.blocks[i].pos_y=board.blocks[i].data.pos_y;
-					board.blocks[i].size_x=board.blocks[i].data.size_x;
-					board.blocks[i].size_y=board.blocks[i].data.size_y;
+	// 				if(!board.blocks[i].data.hasOwnProperty("name")){
+	// 					r.push("NO_DATA_BLOCK_NAME");
+	// 				}
+	// 				if(!board.blocks[i].data.hasOwnProperty("description")){
+	// 					r.push("NO_DATA_BLOCK_DESC");
+	// 				}
+	// 				if(!board.blocks[i].data.hasOwnProperty("data")){
+	// 					r.push("NO_DATA_BLOCK_DATA");
+	// 				}
 
-				}else{
-					if(!board.blocks[i].hasOwnProperty("type")){
-						r.push("NO_BLOCK_TYPE");
-					}
-					if(!board.blocks[i].hasOwnProperty("name")){
-						r.push("NO_BLOCK_NAME");
-					}
-					if(!board.blocks[i].hasOwnProperty("description")){
-						r.push("NO_BLOCK_DESC");
-					}
-					if(!board.blocks[i].hasOwnProperty("var")){
-						r.push("NO_BLOCK_VAR");
-					}
+	// 				// SIZE
+	// 				if(!board.blocks[i].data.hasOwnProperty("size_x")){
+	// 					r.push("NO_DATA_SIZE_X");
+	// 				}
+	// 				if(!board.blocks[i].data.hasOwnProperty("size_y")){
+	// 					r.push("NO_DATA_SIZE_Y");
+	// 				}
+	// 				if(!board.blocks[i].data.hasOwnProperty("pos_x")){
+	// 					r.push("NO_DATA_POS_X");
+	// 				}
+	// 				if(!board.blocks[i].data.hasOwnProperty("pos_y")){
+	// 					r.push("NO_DATA_POS_Y");
+	// 				}
 
-					// SIZE
-					if(!board.blocks[i].hasOwnProperty("size_x")){
-						r.push("NO_SIZE_X");
-					}
-					if(!board.blocks[i].hasOwnProperty("size_y")){
-						r.push("NO_SIZE_Y");
-					}
-					if(!board.blocks[i].hasOwnProperty("pos_x")){
-						r.push("NO_POS_X");
-					}
-					if(!board.blocks[i].hasOwnProperty("pos_y")){
-						r.push("NO_POS_Y");
-					}
+	// 				// Set data
+	// 				board.blocks[i].data.type=board.blocks[i].type;
+	// 				board.blocks[i].pos_x=board.blocks[i].data.pos_x;
+	// 				board.blocks[i].pos_y=board.blocks[i].data.pos_y;
+	// 				board.blocks[i].size_x=board.blocks[i].data.size_x;
+	// 				board.blocks[i].size_y=board.blocks[i].data.size_y;
 
-				}
-			}
-		}else{
-			r.push("NO_BLOCKS")
-		}
-	}
+	// 			}else{
+	// 				if(!board.blocks[i].hasOwnProperty("type")){
+	// 					r.push("NO_BLOCK_TYPE");
+	// 				}
+	// 				if(!board.blocks[i].hasOwnProperty("title")){
+	// 					r.push("NO_BLOCK_TITLE");
+	// 				}
+	// 				if(!board.blocks[i].hasOwnProperty("var")){
+	// 					r.push("NO_BLOCK_VAR");
+	// 				}
+
+	// 				// SIZE
+	// 				if(!board.blocks[i].hasOwnProperty("size_x")){
+	// 					r.push("NO_SIZE_X");
+	// 				}
+	// 				if(!board.blocks[i].hasOwnProperty("size_y")){
+	// 					r.push("NO_SIZE_Y");
+	// 				}
+	// 				if(!board.blocks[i].hasOwnProperty("pos_x")){
+	// 					r.push("NO_POS_X");
+	// 				}
+	// 				if(!board.blocks[i].hasOwnProperty("pos_y")){
+	// 					r.push("NO_POS_Y");
+	// 				}
+
+	// 			}
+	// 		}
+
+	// 	}else{
+	// 		r.push("NO_BLOCKS")
+	// 	}
+	// }
 
 	if(r.length==0){
 		r=true;
@@ -187,17 +186,19 @@ boardmanager.getBoard = function(slug,callback){
 
 boardmanager.saveBlocks = function(board,cb){
 	for(var i in board.blocks){
-		if(board.blocks[i].hasOwnProperty('data')){
+		if(board.blocks[i].type == 'content' || board.blocks[i].type == 'link' || board.blocks[i].type == 'image'){
 
 			var id = uniqid();
 			board.blocks[i].var = id;
-			var data = board.blocks[i].data;
+			var data = board.blocks[i].content;
 			var type = board.blocks[i].type;
 
 			var path = './data/blocks/'+type+'/'+id+'.json';
 			fs.writeFileSync(path,JSON.stringify(data));
 
-			delete board.blocks[i].data;
+			delete board.blocks[i].content;
+		}else{
+			board.blocks[i].content=null;
 		}
 	}
 	cb(true,board)
@@ -211,8 +212,13 @@ boardmanager.transformdata = function(board,cb){
 	
 	boardmanager.saveBlocks(board,function(status,board){
 		boardmanager.validateYT(board.infos.video_id,function(data){
-			board.video_infos=data.data.items[0].snippet;
-			cb(board);
+			if(data.data.items.length>=1){
+				board.video_infos=data.data.items[0].snippet;
+				cb(board);
+			}else{
+				board.video_infos=null;
+				cb(board);
+			}
 		})
 	});
 
