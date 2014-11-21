@@ -245,7 +245,7 @@ var blocksdatapath = './data/blocks/';
 extractor.creator.getContentBlock = function(data,callback){
 
 	var path = blocksdatapath+data.type+"/"+data.q+".json";
-
+	
 	if(fs.existsSync(path)){
 		fs.readFile(path, "utf-8", function read(err, data){
 			callback(JSON.parse(data.toString()));

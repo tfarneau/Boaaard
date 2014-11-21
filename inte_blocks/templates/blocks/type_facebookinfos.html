@@ -1,0 +1,9 @@
+<section class="block_container">
+	<div class="block_edit" ng-click="block.isEdit = !block.isEdit" ng-show="editMode">EDIT</div>
+	<header class="block_title">{{block.title}}</header>
+	<section class="block_content"></section>
+</section>
+<section class="block_backface" ng-show="editMode">
+	Backface
+	<div ng-click="block.isEdit = !block.isEdit" >Validate</div>
+</section>

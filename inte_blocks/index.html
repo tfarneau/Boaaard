@@ -9,8 +9,8 @@
 	<link rel="stylesheet" href="style/angular-gridster.min.css">
 	<link rel="stylesheet" href="style/perfect-scrollbar.min.css">
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+	<script src="scripts/jquery.min.js"></script>
+	<script src="scripts/angular.min.js"></script>
 	<script src="scripts/angular-gridster.min.js"></script>
 	<script src="scripts/ng-include.js"></script>
 	<script src="scripts/svg-injector.min.js"></script>
@@ -43,10 +43,20 @@
 				<img src="images/twitter.svg" alt="" class="icon gradient mini">
 				<span class="icon_title">Twitter account</span>
 			</div>
+			<div class="icon_container" ng-click="addBlock('type_twitterfeed')">
+				<img src="images/round.svg" alt="" class="icon gradient icon-slarge">
+				<img src="images/twitter.svg" alt="" class="icon gradient mini">
+				<span class="icon_title">Twitter feed</span>
+			</div>
 			<div class="icon_container" ng-click="addBlock('type_wikipedia')">
 				<img src="images/round.svg" alt="" class="icon gradient icon-slarge">
 				<img src="images/wikipedia.svg" alt="" class="icon gradient mini">
 				<span class="icon_title">Wikipedia article</span>
+			</div>
+			<div class="icon_container" ng-click="addBlock('type_rssfeed')">
+				<img src="images/round.svg" alt="" class="icon gradient icon-slarge">
+				<img src="images/rss.svg" alt="" class="icon gradient mini">
+				<span class="icon_title">RSS feed</span>
 			</div>
 			<div class="icon_container" ng-click="addBlock('type_content')">
 				<img src="images/round.svg" alt="" class="icon gradient icon-slarge">
@@ -62,11 +72,6 @@
 				<img src="images/round.svg" alt="" class="icon gradient icon-slarge">
 				<img src="images/picture.svg" alt="" class="icon gradient mini">
 				<span class="icon_title">Picture</span>
-			</div>
-			<div class="icon_container" ng-click="addBlock('type_rssfeed')">
-				<img src="images/round.svg" alt="" class="icon gradient icon-slarge">
-				<img src="images/twitter.svg" alt="" class="icon gradient mini">
-				<span class="icon_title">RSS feed</span>
 			</div>
 		</section>
 

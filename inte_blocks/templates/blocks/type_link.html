@@ -1,0 +1,44 @@
+<section class="block_container">
+	<div class="block_edit" ng-click="block.isEdit = !block.isEdit" ng-show="editMode">EDIT</div>
+	<header class="block_title">{{block.title}}</header>
+	<section class="block_content" ng-click="openLink(block.content.link)">
+		<div class="valign">
+			<div class="content_linkiconcontainer">
+				<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" class="content_linkicon">
+					<path d="M21.7,17c0.3-0.1,0.5-0.1,0.8-0.1h8 c2.2,0,4,1.8,4,4s-1.8,4-4,4h-8c-2.2,0-4-1.8-4-4c0-0.7,0.2-1.4,0.5-2"/>
+					<path class="emphasize" d="M18.3,24.8c-0.3,0.1-0.5,0.1-0.8,0.1h-8 c-2.2,0-4-1.8-4-4s1.8-4,4-4h8c2.2,0,4,1.8,4,4c0,0.7-0.2,1.4-0.5,2"/>
+				</svg>
+			</div>
+			<h3 class="link_title">{{block.content.name}}</h3>
+			<span class="link_url">{{block.content.link}}</span>
+		</div>
+	</section>
+</section>
+<section class="block_backface" ng-show="editMode">
+	<header class="block_title">Block edition</header>
+	<header class="block_delete" ng-click="deleteBlock($index)">
+		<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" class="icon icon-small">
+		  <path d="M15.2,30.8l-1-17.9 M24.8,30.8l1-17.9 M20,30.8V12.8"/>
+		  <path class="emphasize" d="M29.2,34.5H10.9 L9.4,9h21.2L29.2,34.5z M34.5,9h-3.6 M9.2,9H5.5 M24.5,8.7V5.5h-9.1v3.2"/>
+		</svg>
+	</header>
+	<section class="block_content">
+		<article class="inputblock">
+			<p>Block title</p>
+			<input type="text" placeholder="Block title" ng-model="block.title">
+		</article>
+		<article class="inputblock">
+			<p>Link title</p>
+			<input type="text" placeholder="Awesome link" ng-model="block.content.name">
+		</article>
+		<article class="inputblock">
+			<p>Link URL</p>
+			<input type="text" placeholder="http://..." ng-model="block.content.link">
+		</article>
+	</section>
+	<div ng-click="saveBlock($index)" class="block_save" ng-class="{'opened': block.isLoading}">
+		<p>SAVE</p>
+		<blockspinner/>
+	</div>
+</section>
+

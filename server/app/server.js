@@ -194,13 +194,13 @@ router.get('/block/content/:q', function(req, res) {
 
 router.get('/block/image/:q', function(req, res) {
 
-	extractor.creator.getContentBlock({ 
-		type : "image",
-		q : req.params.q
-	}, function(data){
-		res.json({status:true,data:data});
-	});
-
+	// extractor.creator.getContentBlock({ 
+	// 	type : "image",
+	// 	q : req.params.q
+	// }, function(data){
+	// 	res.json({status:true,data:data});
+	// });
+	res.json({status:true,data:null});
 });
 
 router.get('/block/link/:q', function(req, res) {

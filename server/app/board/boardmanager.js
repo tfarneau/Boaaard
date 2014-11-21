@@ -186,11 +186,11 @@ boardmanager.getBoard = function(slug,callback){
 
 boardmanager.saveBlocks = function(board,cb){
 	for(var i in board.blocks){
-		if(board.blocks[i].type == 'content' || board.blocks[i].type == 'link' || board.blocks[i].type == 'image'){
+		if(board.blocks[i].type == 'content' || board.blocks[i].type == 'link'){
 
 			var id = uniqid();
 			board.blocks[i].var = id;
-			var data = board.blocks[i].content;
+			var data = board.blocks[i];
 			var type = board.blocks[i].type;
 
 			var path = './data/blocks/'+type+'/'+id+'.json';
