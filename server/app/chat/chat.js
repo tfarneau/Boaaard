@@ -17,27 +17,42 @@ chat.listen = function(socket){
 	var that = this;
 
 	socket.on('connectToChat',function(data){
-		console.log("CONNECT TO CHAT");
-		console.log("slug : "+data.slug);
-		socket.join(data.slug);
-		chat.files.get(data.slug,function(fdata){
-			var send = {
-				oldmessages:fdata
-			};
-			socket.emit('oldMessages',send);
-			chat.io.sockets.in(data.slug).emit('connectedToChat',data);
-			chat.files.save(data);
-		})
+
+		var id = data.pseudo+"-"+data.slug;
+		var status = true;
+		for(var i in chat.clients){
+			if(chat.clients[i]==id){
+				status = false;
+			}
+		}
+
+		if(status){
+			socket.clientid=id;
+			socket.join(data.slug);
+			chat.clients.push(id);
+			chat.files.get(data.slug,function(fdata){
+				var send = {
+					oldmessages:fdata
+				};
+				chat.io.sockets.in(data.slug).emit('connectedToChat',data);
+				socket.emit('oldMessages',send);
+				chat.files.save(data);
+			})
+		}else{
+			chat.io.sockets.in(data.slug).emit('connectedToChat',false);
+		}
+
+		console.log(chat.clients);
+
 	});
 
 	socket.on('sendMessageToChat',function(data){
-		console.log("NEW MESSAGE");
-		console.log("slug : "+data.slug);
 
 		var data2 = {
 			message : data.message,
 			slug : data.slug,
-			pseudo : data.pseudo
+			pseudo : data.pseudo,
+			date : data.date
 		};
 
 		chat.io.sockets.in(data.slug).emit('newMessageToChat',data2);
@@ -45,9 +60,19 @@ chat.listen = function(socket){
 		chat.files.save({
 			slug:data.slug,
 			message:data.message,
-			pseudo:data.pseudo
+			pseudo:data.pseudo,
+			date : data.date
 		});
 	});
+
+	socket.on('disconnect', function () {
+        for(var i = chat.clients.length - 1; i >= 0; i--) {
+			if(chat.clients[i] === socket.clientid) {
+			   chat.clients.splice(i, 1);
+			}
+		}
+		console.log(chat.clients);
+    });
 
 }	
 
