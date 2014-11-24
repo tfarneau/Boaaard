@@ -52,6 +52,10 @@ remote.listen = function(socket){
 		}
 	});
 
+	socket.on('sendMessage',function(data){
+		remote.io.sockets.in(data.roomid).emit("receiveMessage",data);
+	});
+
 	socket.on('disconnect', function () {
         for(var i = remote.remotes.length - 1; i >= 0; i--) {
 			if(remote.remotes[i] === that.remoteId) {

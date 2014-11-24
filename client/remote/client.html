@@ -34,30 +34,14 @@
 		$('.newid').text(id);
 	});
 
-	socket.on('setVolumeVideo',function(message){
-		log('new control : ');
-		log(message);
+	socket.on('receiveControl',function(data){
+		console.log(data)
 	});
 
-	socket.on('playVideo',function(message){
-		log('new control : ');
-		log(message);
-	});
-
-	socket.on('pauseVideo',function(message){
-		log('new control : ');
-		log(message);
-	});
-
-	socket.on('forwardVideo',function(message){
-		log('new control : ');
-		log(message);
-	});
-
-	socket.on('backwardVideo',function(message){
-		log('new control : ');
-		log(message);
-	});
+	socket.on('receiveMessage',function(data){
+		console.log("NEW MESSAGE");
+		console.log(data)
+	})
 
 	socket.on('connected',function(){
 		$('.status').text('connected !');
