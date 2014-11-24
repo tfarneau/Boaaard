@@ -1,4 +1,5 @@
-var randomWord = require('random-word');
+var randomWord = require('uniqid');
+
 
 var remote = module.exports = {};
 
@@ -39,10 +40,10 @@ remote.listen = function(socket){
 		    case "pauseVideo":
 		    case "forwardVideo":
 		    case "backwardVideo":
-		        remote.io.sockets.in(data.roomid).emit(data.control,true);
+		        remote.io.sockets.in(data.roomid).emit("receiveControl",{control:data.control});
 		        break;
 		    case "setVolumeVideo":
-		        remote.io.sockets.in(data.roomid).emit(data.control,{volume:data.volume});
+		        remote.io.sockets.in(data.roomid).emit("receiveControl",{control:data.control,volume:data.volume});
 		        break;
 		}
 

@@ -75,19 +75,12 @@ App.factory('Api', ['$http', function($http) {
       var board = {};
       board.blocks = data;
 
-      for(var i in board.blocks){
-        if(!(board.blocks[i].type=="content" || board.blocks[i].type=="image" || board.blocks[i].type=="link")){
-          // board.blocks[i].content={};
-        }
-      }
-
       ///////
       // ADD INFOS HERE
       ///////
 
       board.infos = {
         url : "http://www.youtube.com/watch?v=wfpL6_0OBuA",
-        name : "test-2",
         description : "testazeazezae azeaze azeaz eaz e az lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem, aliquid quae tempora eveniet deleniti. Odio, tenetur, fugit, animi voluptates ratione itaque asperiores id sit quas quod quos non placeat ab.",
         owner_email : "test@gmail.com"
       };
@@ -248,7 +241,7 @@ App.controller('MainCtrl', ['$scope','Api', function($scope,Api) {
 
     $scope.exportBoard = function(){
       Api.Boards.post($scope.blocks).then(function(result){
-        console.log(result);
+        console.log(result.data);
       });
     }
 

@@ -8,6 +8,7 @@ var slug = require('slug')
 var uniqid = require('uniqid');
 var fs = require('fs');
 var md5 = require('md5');
+var validate = require('validator');
 var blockmanager = require('./blockmanager.js');
 var boards_dir = './data/boards/';
 var directorymanager = require('./directorymanager.js');
@@ -59,101 +60,127 @@ boardmanager.validator = function(board){
 
 	// Infos validation
 
-	// if(!board.hasOwnProperty("infos")){
-	// 	r.push("NO_INFOS");
-	// }else{
-	// 	if(!board.infos.hasOwnProperty("url")){
-	// 		r.push("NO_INFOS_URL");
-	// 	}
-	// 	if(!board.infos.hasOwnProperty("name")){
-	// 		r.push("NO_INFOS_NAME");
-	// 	}
-	// 	if(!board.infos.hasOwnProperty("description")){
-	// 		r.push("NO_INFOS_DESCRIPTION");
-	// 	}
-	// 	if(!board.infos.hasOwnProperty("owner_email")){
-	// 		r.push("NO_INFOS_EMAIL");
-	// 	}
-	// }
+	if(!board.hasOwnProperty("infos")){
+		r.push("NO_INFOS");
+	}else{
+		if(!board.infos.hasOwnProperty("url")){
+			r.push("NO_INFOS_URL");
+		}
+		if(!board.infos.hasOwnProperty("name")){
+			r.push("NO_INFOS_NAME");
+		}
+		if(!board.infos.hasOwnProperty("description")){
+			r.push("NO_INFOS_DESCRIPTION");
+		}
+		if(!board.infos.hasOwnProperty("owner_email")){
+			r.push("NO_INFOS_EMAIL");
+		}
+	}
 
 	// Blocks validation
 
-	// if(!board.hasOwnProperty("blocks")){
-	// 	r.push("NO_BLOCKS");
-	// }else{
-	// 	if(board.blocks.length>=1){
+	if(!board.hasOwnProperty("blocks")){
+		r.push("NO_BLOCKS");
+	}else{
+		if(board.blocks.length<=0){
+			r.push("NO_BLOCKS");
+		}else{
+			for(var i in board.blocks){
+				if(board.blocks[i].hasOwnProperty("type")){
 
-	// 		for(var i in board.blocks){
+					if(!board.blocks[i].hasOwnProperty("title")){
+						r.push("BLOCK_NO_TITLE")
+					}else{
+						if(validate.trim(board.blocks[i].title)==""){
+							r.push("BLOCK_EMPTY_TITLE");
+						}
+					}
 
-	// 			if(board.blocks[i].type=="content" || board.blocks[i].type=="image" || board.blocks[i].type=="link"){
+					if(!board.blocks[i].hasOwnProperty("pos_y")){
+						r.push("BLOCK_NO_POSY")
+					}else{
+						if(validate.trim(board.blocks[i].pos_y)==""){
+							r.push("BLOCK_EMPTY_POSY");
+						}
+					}
 
-	// 				if(!board.blocks[i].hasOwnProperty("type")){
-	// 					r.push("NO_BLOCK_TYPE");
-	// 				}
+					if(!board.blocks[i].hasOwnProperty("pos_x")){
+						r.push("BLOCK_NO_POSX")
+					}else{
+						if(validate.trim(board.blocks[i].pos_x)==""){
+							r.push("BLOCK_EMPTY_POSX");
+						}
+					}
 
-	// 				if(!board.blocks[i].data.hasOwnProperty("name")){
-	// 					r.push("NO_DATA_BLOCK_NAME");
-	// 				}
-	// 				if(!board.blocks[i].data.hasOwnProperty("description")){
-	// 					r.push("NO_DATA_BLOCK_DESC");
-	// 				}
-	// 				if(!board.blocks[i].data.hasOwnProperty("data")){
-	// 					r.push("NO_DATA_BLOCK_DATA");
-	// 				}
+					if(!board.blocks[i].hasOwnProperty("size_y")){
+						r.push("BLOCK_NO_SIZEY")
+					}else{
+						if(validate.trim(board.blocks[i].size_y)==""){
+							r.push("BLOCK_EMPTY_SIZEY");
+						}
+					}
 
-	// 				// SIZE
-	// 				if(!board.blocks[i].data.hasOwnProperty("size_x")){
-	// 					r.push("NO_DATA_SIZE_X");
-	// 				}
-	// 				if(!board.blocks[i].data.hasOwnProperty("size_y")){
-	// 					r.push("NO_DATA_SIZE_Y");
-	// 				}
-	// 				if(!board.blocks[i].data.hasOwnProperty("pos_x")){
-	// 					r.push("NO_DATA_POS_X");
-	// 				}
-	// 				if(!board.blocks[i].data.hasOwnProperty("pos_y")){
-	// 					r.push("NO_DATA_POS_Y");
-	// 				}
+					if(!board.blocks[i].hasOwnProperty("size_x")){
+						r.push("BLOCK_NO_SIZEX")
+					}else{
+						if(validate.trim(board.blocks[i].size_x)==""){
+							r.push("BLOCK_EMPTY_SIZEX");
+						}
+					}
 
-	// 				// Set data
-	// 				board.blocks[i].data.type=board.blocks[i].type;
-	// 				board.blocks[i].pos_x=board.blocks[i].data.pos_x;
-	// 				board.blocks[i].pos_y=board.blocks[i].data.pos_y;
-	// 				board.blocks[i].size_x=board.blocks[i].data.size_x;
-	// 				board.blocks[i].size_y=board.blocks[i].data.size_y;
 
-	// 			}else{
-	// 				if(!board.blocks[i].hasOwnProperty("type")){
-	// 					r.push("NO_BLOCK_TYPE");
-	// 				}
-	// 				if(!board.blocks[i].hasOwnProperty("title")){
-	// 					r.push("NO_BLOCK_TITLE");
-	// 				}
-	// 				if(!board.blocks[i].hasOwnProperty("var")){
-	// 					r.push("NO_BLOCK_VAR");
-	// 				}
+					if(board.blocks[i].type=="content"){
+						if(!board.blocks[i].content.hasOwnProperty("data")){
+							r.push("BLOCK_NO_CONTENT_TEXT")
+						}else{
+							if(validate.trim(board.blocks[i].content.data)==""){
+								r.push("BLOCK_EMPTY_CONTENT_TEXT");
+							}
+						}
+						if(!board.blocks[i].content.hasOwnProperty("name")){
+							r.push("BLOCK_NO_CONTENT_TITLE")
+						}else{
+							if(validate.trim(board.blocks[i].content.name)==""){
+								r.push("BLOCK_EMPTY_CONTENT_NAME");
+							}
+						}
+					}
 
-	// 				// SIZE
-	// 				if(!board.blocks[i].hasOwnProperty("size_x")){
-	// 					r.push("NO_SIZE_X");
-	// 				}
-	// 				if(!board.blocks[i].hasOwnProperty("size_y")){
-	// 					r.push("NO_SIZE_Y");
-	// 				}
-	// 				if(!board.blocks[i].hasOwnProperty("pos_x")){
-	// 					r.push("NO_POS_X");
-	// 				}
-	// 				if(!board.blocks[i].hasOwnProperty("pos_y")){
-	// 					r.push("NO_POS_Y");
-	// 				}
+					if(board.blocks[i].type=="link"){
+						if(!board.blocks[i].content.hasOwnProperty("link")){
+							r.push("BLOCK_NO_CONTENT_LINK")
+						}else{
+							if(validate.trim(board.blocks[i].content.link)==""){
+								r.push("BLOCK_EMPTY_CONTENT_LINK");
+							}
+						}
 
-	// 			}
-	// 		}
+						if(!board.blocks[i].content.hasOwnProperty("name")){
+							r.push("BLOCK_NO_CONTENT_TITLE")
+						}else{
+							if(validate.trim(board.blocks[i].content.name)==""){
+								r.push("BLOCK_EMPTY_CONTENT_NAME");
+							}
+						}
+					}
+					
+					if(!(board.blocks[i].type=="content" || board.blocks[i].type=="link")){	
+						if(!board.blocks[i].hasOwnProperty("var")){
+							r.push("BLOCK_NO_VAR")
+						}else{
+							if(validate.trim(board.blocks[i].var)==""){
+								r.push("BLOCK_EMPTY_VAR");
+							}
+						}
+					}
+					
 
-	// 	}else{
-	// 		r.push("NO_BLOCKS")
-	// 	}
-	// }
+				}else{
+					r.push('BLOCK_NO_TYPE')
+				}
+			}
+		}
+	}
 
 	if(r.length==0){
 		r=true;
@@ -234,6 +261,7 @@ boardmanager.saveboard = function(board,callback){
 	};
 
 	var validation = boardmanager.validator(board);
+	console.log(board);
 
 	if(validation===true){
 
