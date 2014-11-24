@@ -23,7 +23,6 @@
     "youtube-api" : "*",
     "slug" : "*",
     "uniqid" : "*",
-    "md5" : "*",
     "random-word" : "*",
     "validator" : "*"
   },

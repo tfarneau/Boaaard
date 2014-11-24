@@ -39,7 +39,7 @@ chat.listen = function(socket){
 				chat.files.save(data);
 			})
 		}else{
-			chat.io.sockets.in(data.slug).emit('connectedToChat',false);
+			socket.emit('connectedToChat',false);
 		}
 
 		console.log(chat.clients);
