@@ -63,6 +63,11 @@
 		});
 	});
 
+	socket.on('receiveMessage',function(data){
+		console.log("NEW MESSAGE");
+		console.log(data)
+	})
+
 	$('.remote .message').on('click',function(){
 		socket.emit('sendMessage',{
 			message : {

@@ -13,6 +13,8 @@
 	
 	<h1 class="newid"></h1>
 	<h2 class="status">Waiting for connection...</h2>
+	
+	<button class="remote message">NEW MESSAGE</button>
 
 	<div class="log"></div>
 
@@ -26,11 +28,13 @@
   		$('.log').append(msg+"<br/>");
   	}
 
+  	var roomid = null;
   	var socket = io.connect('localhost:3000');
 
 	// GET ID
 	socket.emit('getRemoteId');
 	socket.on('remoteId',function(id){
+		roomid = id;
 		$('.newid').text(id);
 	});
 
@@ -45,6 +49,19 @@
 
 	socket.on('connected',function(){
 		$('.status').text('connected !');
+	});
+
+	$('.remote.message').on('click',function(){
+		console.log("SEND MESSAGE ON "+roomid)
+		socket.emit('sendMessage',{
+			message : {
+				slug: "slug",
+				message: "message",
+				pseudo: "pseudo",
+				date : "date"
+			},
+			roomid : roomid
+		});
 	});
 
   </script>
