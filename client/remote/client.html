@@ -22,6 +22,7 @@
   <script>
 
   	function log(msg){
+  		console.log(msg)
   		$('.log').append(msg+"<br/>");
   	}
 
@@ -33,8 +34,29 @@
 		$('.newid').text(id);
 	});
 
-	socket.on('receiveControl',function(message){
-		log('new control : '+message);
+	socket.on('setVolumeVideo',function(message){
+		log('new control : ');
+		log(message);
+	});
+
+	socket.on('playVideo',function(message){
+		log('new control : ');
+		log(message);
+	});
+
+	socket.on('pauseVideo',function(message){
+		log('new control : ');
+		log(message);
+	});
+
+	socket.on('forwardVideo',function(message){
+		log('new control : ');
+		log(message);
+	});
+
+	socket.on('backwardVideo',function(message){
+		log('new control : ');
+		log(message);
 	});
 
 	socket.on('connected',function(){

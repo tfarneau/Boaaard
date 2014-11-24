@@ -31,7 +31,24 @@ remote.listen = function(socket){
 	});
 
 	socket.on('sendControl',function(data){
-		remote.io.sockets.in(data.roomid).emit('receiveControl',data.control);
+		console.log(data);
+
+		var send = null;
+		switch(data.control) {
+		    case "playVideo":
+		    case "pauseVideo":
+		    case "forwardVideo":
+		    case "backwardVideo":
+		        remote.io.sockets.in(data.roomid).emit(data.control,true);
+		        break;
+		    case "setVolumeVideo":
+		        remote.io.sockets.in(data.roomid).emit(data.control,{volume:data.volume});
+		        break;
+		}
+
+		if(send!=null){
+			remote.io.sockets.in(data.roomid).emit(send.e,send.data);
+		}
 	});
 
 	socket.on('disconnect', function () {

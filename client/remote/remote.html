@@ -18,8 +18,8 @@
 	</form>
 
 	<div class="remote">
-		<button class="play">PLAY</button>
-		<button class="pause">PAUSE</button>
+		<button class="play">VOL</button>
+		<button class="pause">PLAY</button>
 	</div>
 
 	<div class="log"></div>
@@ -50,14 +50,15 @@
 
 	$('.remote .play').on('click',function(){
 		socket.emit('sendControl',{
-			control : "play",
+			control : "setVolumeVideo",
+			volume : 100,
 			roomid : roomid
 		});
 	});
 
 	$('.remote .pause').on('click',function(){
 		socket.emit('sendControl',{
-			control : "pause",
+			control : "playVideo",
 			roomid : roomid
 		});
 	});
