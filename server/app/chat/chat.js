@@ -78,28 +78,34 @@ chat.listen = function(socket){
 
 chat.files = {};
 
+chat.files.isSaving=false;
 chat.files.save = function(data){
 
 	var path = data_dir+data.slug+".json"
-	fs.readFile(path, "utf-8", function read(err, fdata) {
 
-		if(err){
-			fdata=[];
-		}else{
-			fdata=JSON.parse(fdata);
-		}
+	if(!chat.files.isSaving){
+		chat.files.isSaving=true;
+		fs.readFile(path, "utf-8", function read(err, fdata) {
 
-		fdata.push(data);
+			if(err){
+				fdata=[];
+			}else{
+				fdata=JSON.parse(fdata);
+			}
 
-	    fs.writeFile(path, JSON.stringify(fdata), function(err) {
-		    // if(err) {
-		    //     callback(false);
-		    // } else {
-		    //     callback(true);
-		    // }
+			fdata.push(data);
+
+		    fs.writeFile(path, JSON.stringify(fdata), function(err) {
+		    	chat.files.isSaving=false;
+			    // if(err) {
+			    //     callback(false);
+			    // } else {
+			    //     callback(true);
+			    // }
+			}); 
+
 		}); 
-
-	}); 
+	}
 }
 
 chat.files.get = function(slug,callback){
