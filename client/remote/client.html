@@ -42,8 +42,8 @@
 		console.log(data)
 	});
 
-	socket.on('receiveMessage',function(data){
-		console.log("NEW MESSAGE");
+	socket.on('receiveMessageFromRemote',function(data){
+		console.log("NEW MESSAGE FROM REMOTE");
 		console.log(data)
 	})
 
@@ -53,7 +53,7 @@
 
 	$('.remote.message').on('click',function(){
 		console.log("SEND MESSAGE ON "+roomid)
-		socket.emit('sendMessage',{
+		socket.emit('sendMessageToRemote',{
 			message : {
 				slug: "slug",
 				message: "message",

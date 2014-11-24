@@ -63,13 +63,13 @@
 		});
 	});
 
-	socket.on('receiveMessage',function(data){
-		console.log("NEW MESSAGE");
+	socket.on('receiveMessageFromClient',function(data){
+		console.log("NEW MESSAGE FROM CLIENT");
 		console.log(data)
 	})
 
 	$('.remote .message').on('click',function(){
-		socket.emit('sendMessage',{
+		socket.emit('sendMessageToClient',{
 			message : {
 				slug: "slug",
 				message: "message",
