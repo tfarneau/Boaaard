@@ -1,36 +1,45 @@
 var randomWord = require('uniqid');
-
-
 var remote = module.exports = {};
 
+// Clients list
 remote.remotes = [];
 remote.io = {};
+
+/**
+ * Init remote socket
+ * @param  {obj} server : io server
+ */
 
 remote.init = function(server){
 	remote.io = server;
 };
+
+/**
+ * Listen remote socket
+ * @param  {obj} socket : opened socket
+ */
 
 remote.listen = function(socket){ 
 
 	this.remoteId=null;
 	var that = this;
 
+	// Someone want an ID for his remote
 	socket.on('getRemoteId',function(){
 		that.remoteId = randomWord();
-
 		remote.remotes.push(that.remoteId);
 		socket.emit('remoteId',that.remoteId);
 		socket.join(that.remoteId);
 
 	});
 
+	// Someone wants to connecte the remote to a created room
 	socket.on('connectRemote',function(id){
-
 		socket.join(id);
 		remote.io.sockets.in(id).emit('connected',id);
-
 	});
-
+	
+	// A control is sent to the clien
 	socket.on('sendControl',function(data){
 		console.log(data);
 
@@ -52,14 +61,17 @@ remote.listen = function(socket){
 		}
 	});
 
+	// A message is sent from the remote to the client
 	socket.on('sendMessageToClient',function(data){
 		remote.io.sockets.in(data.roomid).emit("receiveMessageFromRemote",data);
 	});
 
+	// A message is sent to the remote
 	socket.on('sendMessageToRemote',function(data){
 		remote.io.sockets.in(data.roomid).emit("receiveMessageFromClient",data);
 	});
 
+	// Someone disconnect
 	socket.on('disconnect', function () {
         for(var i = remote.remotes.length - 1; i >= 0; i--) {
 			if(remote.remotes[i] === that.remoteId) {

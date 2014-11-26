@@ -4,9 +4,14 @@ var api = require('./api.js');
 var cache = require('../cache/cache.js');
 var fs = require('fs');
 
-// BLOCKS CREATOR
-
+// Block creator, using the api module
 extractor.creator = {};
+
+/**
+ * Create user timeline block
+ * @param  {obj}   data : data to get
+ * @param  {Function} callback
+ */
 
 extractor.creator.createTwitterUserTimeline = function(data,callback){
 
@@ -53,6 +58,12 @@ extractor.creator.createTwitterUserTimeline = function(data,callback){
 
 }
 
+/**
+ * Create twitter search block
+ * @param  {obj}   data : data to get
+ * @param  {Function} callback
+ */
+
 extractor.creator.createTwitterSearch = function(data,callback){
 
 	var b = {
@@ -97,6 +108,12 @@ extractor.creator.createTwitterSearch = function(data,callback){
 
 }
 
+/**
+ * Create twitter user infos block
+ * @param  {obj}   data : data to get
+ * @param  {Function} callback
+ */
+
 extractor.creator.createTwitterUserInfos = function(data,callback){
 
 	var b = {
@@ -140,6 +157,12 @@ extractor.creator.createTwitterUserInfos = function(data,callback){
 	});
 }
 
+/**
+ * Create news block
+ * @param  {obj}   data : data to get
+ * @param  {Function} callback
+ */
+
 extractor.creator.createNewsBlock = function(data,callback){
 
 	var b = {
@@ -179,6 +202,12 @@ extractor.creator.createNewsBlock = function(data,callback){
 	});
 
 }
+
+/**
+ * Create wikipedia block
+ * @param  {obj}   data : data to get
+ * @param  {Function} callback
+ */
 
 extractor.creator.createWikiBlock = function(data,callback){
 
@@ -229,6 +258,12 @@ extractor.creator.createWikiBlock = function(data,callback){
 
 }
 
+/**
+ * Create facebook infos block
+ * @param  {obj}   data : data to get
+ * @param  {Function} callback
+ */
+
 extractor.creator.createFacebookInfos = function(data,callback){
 
 	var d = {
@@ -240,6 +275,12 @@ extractor.creator.createFacebookInfos = function(data,callback){
 	});
 
 }
+
+/**
+ * Get data for custom blocks
+ * @param  {obj}   data : data to get
+ * @param  {Function} callback
+ */
 
 var blocksdatapath = './data/blocks/';
 extractor.creator.getContentBlock = function(data,callback){

@@ -1,21 +1,31 @@
-// var randomWord = require('random-word');
 var fs = require('fs');
-
 var chat = module.exports = {};
 var data_dir = "./data/chat/";
 
+// Clients list
 chat.clients = [];
 chat.io = {};
+
+/**
+ * Init chat socket
+ * @param  {obj} server : io server
+ */
 
 chat.init = function(server){
 	chat.io = server;
 };
+
+/**
+ * Listen chat socket
+ * @param  {obj} socket : opened socket
+ */
 
 chat.listen = function(socket){ 
 
 	this.remoteId=null;
 	var that = this;
 
+	// When someone connects to chat
 	socket.on('connectToChat',function(data){
 
 		var id = data.pseudo+"-"+data.slug;
@@ -28,24 +38,27 @@ chat.listen = function(socket){
 
 		if(status){
 			socket.clientid=id;
+
+			// Join the room
 			socket.join(data.slug);
 			chat.clients.push(id);
+			
+			// Get the old messages
 			chat.files.get(data.slug,function(fdata){
 				var send = {
 					oldmessages:fdata
 				};
-				chat.io.sockets.in(data.slug).emit('connectedToChat',data);
 				socket.emit('oldMessages',send);
+				chat.io.sockets.in(data.slug).emit('connectedToChat',data);
 				chat.files.save(data);
 			})
 		}else{
 			socket.emit('connectedToChat',false);
 		}
 
-		console.log(chat.clients);
-
 	});
 
+	// When someone send a message
 	socket.on('sendMessageToChat',function(data){
 
 		var data2 = {
@@ -55,8 +68,10 @@ chat.listen = function(socket){
 			date : data.date
 		};
 
+		// Emit in the room
 		chat.io.sockets.in(data.slug).emit('newMessageToChat',data2);
 
+		// Save the data to JSON
 		chat.files.save({
 			slug:data.slug,
 			message:data.message,
@@ -65,20 +80,30 @@ chat.listen = function(socket){
 		});
 	});
 
+	// When someone disconnect
 	socket.on('disconnect', function () {
         for(var i = chat.clients.length - 1; i >= 0; i--) {
 			if(chat.clients[i] === socket.clientid) {
 			   chat.clients.splice(i, 1);
 			}
 		}
-		console.log(chat.clients);
     });
 
 }	
 
+// Chat data management
+// ====================
+
 chat.files = {};
 
+// Avoid buffer problems
 chat.files.isSaving=false;
+
+/**
+ * Save json with history
+ * @param  {obj} data : json data to save
+ */
+
 chat.files.save = function(data){
 
 	var path = data_dir+data.slug+".json"
@@ -107,6 +132,12 @@ chat.files.save = function(data){
 		}); 
 	}
 }
+
+/**
+ * Get json by slug
+ * @param  {string}   slug     : board slug
+ * @param  {Function} callback
+ */
 
 chat.files.get = function(slug,callback){
 

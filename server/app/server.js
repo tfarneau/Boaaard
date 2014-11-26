@@ -5,7 +5,6 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var request = require('request');
-
 var validator = require('validator');
 
 // Express + SocketIO
@@ -31,15 +30,17 @@ var remote = require('./remote/remote.js');
 // CHAT
 var chat = require('./chat/chat.js');
 
+// SocketIO components
 var ioserver = require('socket.io')(server);
+
+// Remote & chat initialization
 remote.init(ioserver);
 chat.init(ioserver);
-
 
 ioserver.on('connection',remote.listen);
 ioserver.on('connection',chat.listen);
 
-// ENABLE CORS
+// Enable CORS for Angular
 
 app.all('/*', function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -48,8 +49,8 @@ app.all('/*', function(req, res, next) {
   next(); 
 });
 
-// ROUTES FOR OUR API
-// ==================
+// ROUTES
+// ======
 
 var router = express.Router();
 
@@ -59,15 +60,16 @@ var router = express.Router();
 var boardmanager = require('./board/boardmanager.js');
 var directorymanager = require('./board/directorymanager.js');
 
+// Validate a youtuve video and get content
 router.get('/validate_youtube/:video_id', function(req, res){ 
-	
-	// console.log(req.param('video_id'));
+
 	var r = boardmanager.validateYT(req.param('video_id'),function(r){
 		res.json(r);
 	});
 
 });
 
+// Get a board by slug
 router.get('/boards/:slug', function(req, res){ 
 	
 	var r = boardmanager.getBoard(req.params.slug,function(r){
@@ -76,6 +78,7 @@ router.get('/boards/:slug', function(req, res){
 
 });
 
+// Get the board's list
 router.get('/boards', function(req, res){ 
 	
 	var r = directorymanager.getBoards(function(r){
@@ -84,7 +87,7 @@ router.get('/boards', function(req, res){
 
 });
 
-
+// Add a board
 router.post('/boards', function(req, res){ 
 	
 	var data = req.body;
@@ -97,10 +100,7 @@ router.post('/boards', function(req, res){
 // ROUTES : BLOCKS
 // ===============
 
-router.get('/block', function(req, res) {
-	res.send('/block/news/query:string<br/>/block/wiki/query:string<br/>/block/twitter/userTimeline/username:string<br/>/block/twitter/search/query:string<br/>/block/facebook/infos/page_id:int');
-});
-
+// Wikipedia block
 router.get('/block/wiki/:q', function(req, res) {
 
 	extractor.creator.createWikiBlock({ 
@@ -114,6 +114,7 @@ router.get('/block/wiki/:q', function(req, res) {
 
 });
 
+// User twitter timeline block
 router.get('/block/twitter/userTimeline/:q', function(req, res) {
 
 	extractor.creator.createTwitterUserTimeline({ 
@@ -127,6 +128,7 @@ router.get('/block/twitter/userTimeline/:q', function(req, res) {
 
 });
 
+// Twitter search block
 router.get('/block/twitter/search/:q', function(req, res) {
 
 	extractor.creator.createTwitterSearch({ 
@@ -140,6 +142,7 @@ router.get('/block/twitter/search/:q', function(req, res) {
 
 });
 
+// Twitter user infos block
 router.get('/block/twitter/userInfos/:q', function(req, res) {
 
 	extractor.creator.createTwitterUserInfos({ 
@@ -153,6 +156,7 @@ router.get('/block/twitter/userInfos/:q', function(req, res) {
 
 });
 
+// Facebook infos block
 router.get('/block/facebook/infos/:q', function(req, res) {
 
 	extractor.creator.createFacebookInfos({ 
@@ -166,6 +170,7 @@ router.get('/block/facebook/infos/:q', function(req, res) {
 
 });
 
+// RSS news block
 router.get('/block/news/:q', function(req, res) {
 
 	extractor.creator.createNewsBlock({ 
@@ -179,8 +184,7 @@ router.get('/block/news/:q', function(req, res) {
 
 });
 
-// blocks perso
-
+// Custom content block
 router.get('/block/content/:q', function(req, res) {
 
 	extractor.creator.getContentBlock({ 
@@ -192,17 +196,12 @@ router.get('/block/content/:q', function(req, res) {
 
 });
 
+// Fix for image block
 router.get('/block/image/:q', function(req, res) {
-
-	// extractor.creator.getContentBlock({ 
-	// 	type : "image",
-	// 	q : req.params.q
-	// }, function(data){
-	// 	res.json({status:true,data:data});
-	// });
 	res.json({status:true,data:null});
 });
 
+// Custom link block
 router.get('/block/link/:q', function(req, res) {
 
 	extractor.creator.getContentBlock({ 
@@ -217,10 +216,20 @@ router.get('/block/link/:q', function(req, res) {
 
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
+
 app.use('/api', router);
 
 // START THE SERVER
 // =============================================================================
 
 app.start(port);
-console.log("Server started on "+port);
+
+// Magic message !
+console.log(" _                                     _ ");
+console.log("| |                                   | |");
+console.log("| |__   ___   __ _  __ _  __ _ _ __ __| |");
+console.log("| '_ \\ / _ \\ / _` |/ _` |/ _` | '__/ _` |");
+console.log("| |_) | (_) | (_| | (_| | (_| | | | (_| |");
+console.log("|_.__/ \\___/ \\__,_|\\__,_|\\__,_|_|  \\__,_|");
+console.log(" ");
+console.log("Server listening on "+port);

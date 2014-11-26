@@ -2,7 +2,14 @@ var cache = module.exports = {};
 var fs = require('fs');
 var md5 = require('MD5');
 
+// Cache data directory
 var tmp_dir = './temp/';
+
+/**
+ * Create a timestamp from validity duration
+ * @param  {int} validity : validity duration in hours
+ * @return {int}          : timestamp with the end date
+ */
 
 cache.createTimestamp = function(validity){
 
@@ -14,6 +21,13 @@ cache.createTimestamp = function(validity){
 
 }
 
+/**
+ * Create a file name from the block
+ * @param  {string} block : block name to save
+ * @param  {obj} data     : data to save
+ * @return {string}       : name of the file
+ */
+
 cache.createFilename = function(block,data){
 
 	block = block.replace("/", "_");
@@ -23,6 +37,13 @@ cache.createFilename = function(block,data){
 	return fileName;
 
 }
+
+/**
+ * Check if a file exists
+ * @param  {string}   block    : block to save name
+ * @param  {data}   data       : data object
+ * @param  {Function} callback
+ */
 
 cache.check = function(block,data,callback){
 
@@ -57,6 +78,15 @@ cache.check = function(block,data,callback){
 
 	}
 }
+
+/**
+ * Write a cache content
+ * @param  {string}   block    : name of the block
+ * @param  {obj}   data        : main data of the block
+ * @param  {obj}   content     : data to save
+ * @param  {int}   validity    : validity duration in hours
+ * @param  {Function} callback
+ */
 
 cache.write = function(block,data,content,validity,callback){
 

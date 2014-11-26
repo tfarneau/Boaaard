@@ -1,6 +1,11 @@
 var directorymanager = module.exports = {};
 var fs = require('fs');
 
+/**
+ * Add a board to the directory
+ * @param {data} data : board data to add
+ */
+
 directorymanager.addBoard = function(data){
 
 	var send = {
@@ -21,18 +26,16 @@ directorymanager.addBoard = function(data){
 
 		fdata.push(send);
 
-	    fs.writeFile(path, JSON.stringify(fdata), function(err) {
-		    // if(err) {
-		    //     callback(false);
-		    // } else {
-		    //     callback(true);
-		    // }
-		}); 
+	    fs.writeFile(path, JSON.stringify(fdata), function(err){}); 
 
 	}); 
 
 }
 
+/**
+ * Get boards data
+ * @param  {Function} callback [description]
+ */
 
 directorymanager.getBoards = function(callback){
 

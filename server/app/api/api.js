@@ -47,103 +47,6 @@ function first(obj) {
 
 /*\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/*/
 /*												*/
-/*						TED						*/
-/*												*/
-/*	Endpoints :									*/
-/*	-----------									*/
-/*												*/
-/*	api.ted.talks								*/
-/*	api.ted.countries							*/
-/*	api.ted.events								*/
-/*	api.ted.languages							*/
-/*	api.ted.quotes								*/
-/*	api.ted.ratings								*/
-/*	api.ted.rating_words						*/
-/*	api.ted.speakers							*/
-/*	api.ted.states								*/
-/*	api.ted.tedx_events							*/
-/*	api.ted.tedx_groups							*/
-/*	api.ted.tedx_speakers						*/
-/*	api.ted.tedx_venues							*/
-/*												*/
-/*	Main structure :							*/
-/*	----------------							*/
-/*												*/
-/*	fn(params,callback) 						*/
-/*												*/
-/*	Params :									*/
-/*	--------									*/
-/*	     										*/
-/*	id (int)									*/
-/*	limit (int)									*/
-/*	offset (int)								*/
-/*												*/
-/*\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/*/
-
-api.ted={};
-
-api.ted.createRequest = function(name,data,callback){
-
-	if(data==null){
-		data={};
-	}
-
-	var params={
-		// 'callback':'JSON_CALLBACK',
-		'api-key':api.config.ted.key
-	};
-
-	for(var i in data){
-		params[i]=data[i];
-	}
-
-	params = convertToParams(params);
-
-
-	if(data.hasOwnProperty('id')){
-
-		request({
-			uri : api.config.ted.url+name+"/"+parseInt(data.id)+".json"+params,
-			method : "GET"
-		}, function(e,r,b){
-			callback(JSON.parse(b));
-		});
-		
-	}else{
-
-		request({
-			uri : api.config.ted.url+name+".json"+params,
-			method : "GET"
-		}, function(e,r,b){
-			callback(JSON.parse(b));
-		});
-
-	}
-
-  	return request;
-}
-
-api.ted.talks = function(data,callback){ return(api.ted.createRequest('talks',data,callback)); };
-api.ted.countries = function(data,callback){ return(api.ted.createRequest('countries',data,callback)); };
-api.ted.events = function(data,callback){ return(api.ted.createRequest('events',data,callback)); };
-api.ted.languages = function(data,callback){ return(api.ted.createRequest('languages',data,callback)); };
-api.ted.quotes = function(data,callback){ return(api.ted.createRequest('quotes',data,callback)); };
-api.ted.ratings = function(data,callback){ return(api.ted.createRequest('ratings',data,callback)); };
-api.ted.rating_words = function(data,callback){ return(api.ted.createRequest('rating_words',data,callback)); };
-api.ted.speakers = function(data,callback){ return(api.ted.createRequest('speakers',data,callback)); };
-api.ted.states = function(data,callback){ return(api.ted.createRequest('states',data,callback)); };
-api.ted.tedx_events = function(data,callback){ return(api.ted.createRequest('tedx_events',data,callback)); };
-api.ted.tedx_groups = function(data,callback){ return(api.ted.createRequest('tedx_groups',data,callback)); };
-api.ted.tedx_speakers = function(data,callback){ return(api.ted.createRequest('tedx_speakers',data,callback)); };
-api.ted.tedx_venues = function(data,callback){ return(api.ted.createRequest('tedx_venues',data,callback)); };
-
-// TODO
-api.ted.themes = function(data,callback){ return(api.ted.createRequest('themes',data,callback)); };
-api.ted.playlists = function(data,callback){ return(api.ted.createRequest('playlists',data,callback)); };
-api.ted.search = function(data,callback){ return(api.ted.createRequest('search',data,callback)); };
-
-/*\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/*/
-/*												*/
 /*						WIKI					*/
 /*												*/
 /*	Endpoints :									*/
@@ -311,14 +214,99 @@ var FB = require('fb');
 
 api.facebook = FB;
 
-// cache.write('twitter/userInfos','tfarneau',{test:'test'},0.05,function(r){
-// 	console.log(r);
-// })
+/*\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/*/
+/*												*/
+/*						TED						*/
+/*												*/
+/*	Endpoints :									*/
+/*	-----------									*/
+/*												*/
+/*	api.ted.talks								*/
+/*	api.ted.countries							*/
+/*	api.ted.events								*/
+/*	api.ted.languages							*/
+/*	api.ted.quotes								*/
+/*	api.ted.ratings								*/
+/*	api.ted.rating_words						*/
+/*	api.ted.speakers							*/
+/*	api.ted.states								*/
+/*	api.ted.tedx_events							*/
+/*	api.ted.tedx_groups							*/
+/*	api.ted.tedx_speakers						*/
+/*	api.ted.tedx_venues							*/
+/*												*/
+/*	Main structure :							*/
+/*	----------------							*/
+/*												*/
+/*	fn(params,callback) 						*/
+/*												*/
+/*	Params :									*/
+/*	--------									*/
+/*	     										*/
+/*	id (int)									*/
+/*	limit (int)									*/
+/*	offset (int)								*/
+/*												*/
+/*\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/*/
 
-// cache.check('twitter/userInfos','tfarneau',function(d){
-// 	if(!d){
-// 		console.log("NOTHING");
-// 	}else{
-// 		console.log(d);
+// api.ted={};
+
+// api.ted.createRequest = function(name,data,callback){
+
+// 	if(data==null){
+// 		data={};
 // 	}
-// });
+
+// 	var params={
+// 		// 'callback':'JSON_CALLBACK',
+// 		'api-key':api.config.ted.key
+// 	};
+
+// 	for(var i in data){
+// 		params[i]=data[i];
+// 	}
+
+// 	params = convertToParams(params);
+
+
+// 	if(data.hasOwnProperty('id')){
+
+// 		request({
+// 			uri : api.config.ted.url+name+"/"+parseInt(data.id)+".json"+params,
+// 			method : "GET"
+// 		}, function(e,r,b){
+// 			callback(JSON.parse(b));
+// 		});
+		
+// 	}else{
+
+// 		request({
+// 			uri : api.config.ted.url+name+".json"+params,
+// 			method : "GET"
+// 		}, function(e,r,b){
+// 			callback(JSON.parse(b));
+// 		});
+
+// 	}
+
+//   	return request;
+// }
+
+// api.ted.talks = function(data,callback){ return(api.ted.createRequest('talks',data,callback)); };
+// api.ted.countries = function(data,callback){ return(api.ted.createRequest('countries',data,callback)); };
+// api.ted.events = function(data,callback){ return(api.ted.createRequest('events',data,callback)); };
+// api.ted.languages = function(data,callback){ return(api.ted.createRequest('languages',data,callback)); };
+// api.ted.quotes = function(data,callback){ return(api.ted.createRequest('quotes',data,callback)); };
+// api.ted.ratings = function(data,callback){ return(api.ted.createRequest('ratings',data,callback)); };
+// api.ted.rating_words = function(data,callback){ return(api.ted.createRequest('rating_words',data,callback)); };
+// api.ted.speakers = function(data,callback){ return(api.ted.createRequest('speakers',data,callback)); };
+// api.ted.states = function(data,callback){ return(api.ted.createRequest('states',data,callback)); };
+// api.ted.tedx_events = function(data,callback){ return(api.ted.createRequest('tedx_events',data,callback)); };
+// api.ted.tedx_groups = function(data,callback){ return(api.ted.createRequest('tedx_groups',data,callback)); };
+// api.ted.tedx_speakers = function(data,callback){ return(api.ted.createRequest('tedx_speakers',data,callback)); };
+// api.ted.tedx_venues = function(data,callback){ return(api.ted.createRequest('tedx_venues',data,callback)); };
+
+// // TODO
+// api.ted.themes = function(data,callback){ return(api.ted.createRequest('themes',data,callback)); };
+// api.ted.playlists = function(data,callback){ return(api.ted.createRequest('playlists',data,callback)); };
+// api.ted.search = function(data,callback){ return(api.ted.createRequest('search',data,callback)); };

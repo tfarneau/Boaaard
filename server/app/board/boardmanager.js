@@ -1,9 +1,11 @@
+// Youtube api informations
 var yt = require("youtube-api");
 yt.authenticate({
 	type : "key",
 	key : "AIzaSyD-mZVrzuCtZYngdtIH5C6bML9hs8ylxBM"
 });
 
+// Dependencies
 var slug = require('slug')
 var uniqid = require('uniqid');
 var fs = require('fs');
@@ -15,7 +17,11 @@ var directorymanager = require('./directorymanager.js');
 
 var boardmanager = module.exports = {};
 
-//
+/**
+ * Extract youtube ID from an URL
+ * @param  {string} url : youtube URL
+ * @return {string} id extracted
+ */
 boardmanager.extractIdFromUrl = function(url){
 
 	var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]{11,11}).*/;
@@ -25,8 +31,16 @@ boardmanager.extractIdFromUrl = function(url){
 }
 
 // VALIDATOR
+// =========
+// Validate youtube videos and board data
 
 boardmanager.validator = {};
+
+/**
+ * Validate a youtube video by id
+ * @param  {string}   id : video id
+ * @param  {Function} cb
+ */
 
 boardmanager.validateYT = function(id,cb){
 
@@ -53,7 +67,11 @@ boardmanager.validateYT = function(id,cb){
 	    cb(r);
 	});
 }
-// boardmanager.validateYT(board.infos.video_id);
+
+/**
+ * Validate a board
+ * @param  {obj} board : board data to validate
+ */
 
 boardmanager.validator = function(board){
 	var r=[];
