@@ -64,6 +64,7 @@ remote.listen = function(socket){
         for(var i = remote.remotes.length - 1; i >= 0; i--) {
 			if(remote.remotes[i] === that.remoteId) {
 			   remote.remotes.splice(i, 1);
+			   socket.disconnect();
 			}
 		}
     });
