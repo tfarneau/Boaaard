@@ -22,6 +22,7 @@ var boardmanager = module.exports = {};
  * @param  {string} url : youtube URL
  * @return {string} id extracted
  */
+
 boardmanager.extractIdFromUrl = function(url){
 
 	var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]{11,11}).*/;
@@ -74,9 +75,12 @@ boardmanager.validateYT = function(id,cb){
  */
 
 boardmanager.validator = function(board){
+
+	// Errors array
 	var r=[];
 
 	// Infos validation
+	// ================
 
 	if(!board.hasOwnProperty("infos")){
 		r.push("NO_INFOS");
@@ -96,6 +100,7 @@ boardmanager.validator = function(board){
 	}
 
 	// Blocks validation
+	// =================
 
 	if(!board.hasOwnProperty("blocks")){
 		r.push("NO_BLOCKS");
@@ -206,7 +211,13 @@ boardmanager.validator = function(board){
 	return r;
 }
 
-// GETTER
+// GET INFOS
+
+/**
+ * Get a board by slug
+ * @param  {string}   slug     : slug of the board to get
+ * @param  {Function} callback      
+ */
 
 boardmanager.getBoard = function(slug,callback){
 
@@ -228,6 +239,12 @@ boardmanager.getBoard = function(slug,callback){
 }
 
 // SAVE BLOCKS
+
+/**
+ * Save a block
+ * @param  {obj}   board : board data to save
+ * @param  {Function} cb
+ */
 
 boardmanager.saveBlocks = function(board,cb){
 	for(var i in board.blocks){
@@ -251,6 +268,12 @@ boardmanager.saveBlocks = function(board,cb){
 
 // TRANSFORMER
 
+/**
+ * Transform data to be good to save
+ * @param  {obj}   board : data to transform
+ * @param  {Function} cb
+ */
+
 boardmanager.transformdata = function(board,cb){
 	board.infos.video_id=boardmanager.extractIdFromUrl(board.infos.url);
 	board.infos.slug=slug(board.infos.name);
@@ -271,6 +294,12 @@ boardmanager.transformdata = function(board,cb){
 
 // SAVER
 
+/**
+ * Save a board
+ * @param  {obj}   board    : bard data to save
+ * @param  {Function} callback
+ */
+
 boardmanager.saveboard = function(board,callback){
 
 	var r={
@@ -279,7 +308,6 @@ boardmanager.saveboard = function(board,callback){
 	};
 
 	var validation = boardmanager.validator(board);
-	console.log(board);
 
 	if(validation===true){
 
@@ -310,6 +338,13 @@ boardmanager.saveboard = function(board,callback){
 // FILES MANAGER
 
 boardmanager.files = {};
+
+/**
+ * Files save
+ * @param  {obh}   data     : data to save
+ * @param  {Function} callback
+ */
+
 boardmanager.files.save = function(data,callback){
 
 	var id=slug(data.infos.name);

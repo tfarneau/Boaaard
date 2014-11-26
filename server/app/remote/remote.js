@@ -41,7 +41,6 @@ remote.listen = function(socket){
 	
 	// A control is sent to the clien
 	socket.on('sendControl',function(data){
-		console.log(data);
 
 		var send = null;
 		switch(data.control) {

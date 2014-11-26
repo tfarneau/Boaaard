@@ -64,9 +64,7 @@ cache.check = function(block,data,callback){
 		    callback(JSON.parse(data.toString()));
 
 		    if(_time<=_data.__cache_end_date){
-		    	console.log('valid');
 		    }else{
-		    	console.log('expired, deleting');
 		    	fs.unlinkSync(tmp_dir+fileName);
 		    }
 
