@@ -30,11 +30,12 @@ remote.listen = function(socket){
 		remote.remotes.push(that.remoteId);
 		socket.emit('remoteId',that.remoteId);
 		socket.join(that.remoteId);
-
+		// console.log("getRemoteId : "+that.remoteId);
 	});
 
 	// Someone wants to connecte the remote to a created room
 	socket.on('connectRemote',function(id){
+		// console.log("connectRemote to "+id);
 		socket.join(id);
 		remote.io.sockets.in(id).emit('connected',id);
 	});

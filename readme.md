@@ -1,48 +1,26 @@
-Boaaard server
+Boaaaard
 ===================
+Accéder au projet : [hetic.10.30.2.64.xip.io](hetic.10.30.2.64.xip.io)
 
-Chaque retour contient une variable "status", égale à true si c'est bon, ou à un tableau d'erreurs si c'est pas bon. 
+### Technologies utilisées
 
-## Routes ##
+##### Serveur
+API NodeJS.
+Dépendances principales : express, socket.io, fs, diverses API (twitter, youtube, google feed, freebase ...) 
 
-**/validate_youtube/video_id:string (GET)**
-Valider un ID de vidéo youtube
+##### Client
+Application AngularJS. 
+Dépendances principales : gridster, ngRoutes, svgInjector, momentJS ...
 
-### Blocks ###
+##### Outils / autres
+Chrome extension, Gulp, SASS, svg
 
-Pour chaque route, retourne un objet avec :
-- title : titre du block
-- description : description du block
-- fromCache : est-ce que c'est du live ou du cache
-- content : le contenu du block 
+### Arborescence
+- server : serveur node
+- client : client angular
+- extension : extension google chrome
 
-**/block/news/query:string (GET)**
-Block de news venant de l'api google
-
-**/block/wiki/query:string (GET)**
-Article wikipedia
-
-**/block/twitter/userTimeline/username:string (GET)**
-Timeline d'un utilisateur twitter (donner l'username)
-
-**/block/twitter/search/query:string (GET)**
-Recherche twitter (mot clé, hashtag ...)
-
-**/block/facebook/infos/page_id:int (GET)**
-Infos sur une page facebook (donner l'id de la page)
-
-**/block/content/id:string (GET)**
-**/block/image/id:string (GET)**
-**/block/link/id:string (GET)**
-Custom block (l'id est donné dans les infos sur le board)
-
-### Boards ###
-
-**/board/slug:string (GET)**
-Récupère des infos sur un board
-
-**/board (POST)** 
-Ajoute un board
-
-**/board (GET)**
-Récupère une liste de boards
+### Installation
+- `npm install` dans le dossier `server/`
+- modifier la variable `SERVER_URL` (dans `js/app.min.js`) par votre url locale
+- modifier l'url de connexion à la socket dans le fichier `remote.html` (l.100, `io.connect('VOTRE_URL')`)

@@ -269,6 +269,45 @@ boardmanager.saveBlocks = function(board,cb){
 // TRANSFORMER
 
 /**
+ * Check if slug is taken
+ * @param  {string} slug : slug to check
+ */
+
+function isSlugOk(slug,data,nb){
+
+	var slug_f = null;
+	if(nb==0){
+		slug_f=slug;
+	}else{
+		slug_f=slug+"-"+nb;
+	}
+
+	var status=true;
+	for(var i in data.data){
+		if(data.data[i].slug==slug_f){
+			status=false;
+		}
+	}
+
+	console.log(slug_f+" IS THE LAST");
+	console.log(nb+" IS THE NUMBER");
+
+	if(status){
+		return slug_f;
+	}else{
+		nb=nb+1;
+		return isSlugOk(slug,data,nb)
+	}
+}
+
+boardmanager.checkSlug = function(slug,callback){
+	directorymanager.getBoards(function(data){
+		var slug2 = isSlugOk(slug,data,0);
+		callback(slug2);
+	})
+}
+
+/**
  * Transform data to be good to save
  * @param  {obj}   board : data to transform
  * @param  {Function} cb
@@ -276,18 +315,24 @@ boardmanager.saveBlocks = function(board,cb){
 
 boardmanager.transformdata = function(board,cb){
 	board.infos.video_id=boardmanager.extractIdFromUrl(board.infos.url);
-	board.infos.slug=slug(board.infos.name);
-	
-	boardmanager.saveBlocks(board,function(status,board){
-		boardmanager.validateYT(board.infos.video_id,function(data){
-			if(data.data.items.length>=1){
-				board.video_infos=data.data.items[0].snippet;
-				cb(board);
-			}else{
-				board.video_infos=null;
-				cb(board);
-			}
-		})
+
+	var islug = slug(board.infos.name);
+	boardmanager.checkSlug(islug,function(rslug){
+
+		board.infos.slug=rslug;
+
+		boardmanager.saveBlocks(board,function(status,board){
+			boardmanager.validateYT(board.infos.video_id,function(data){
+				if(data.data.items.length>=1){
+					board.video_infos=data.data.items[0].snippet;
+					cb(board);
+				}else{
+					board.video_infos=null;
+					cb(board);
+				}
+			})
+		});
+
 	});
 
 }
@@ -347,7 +392,7 @@ boardmanager.files = {};
 
 boardmanager.files.save = function(data,callback){
 
-	var id=slug(data.infos.name);
+	var id=data.infos.slug;
 	var fileName = id+'.json';
 	var end_date;
 
