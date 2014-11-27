@@ -289,9 +289,6 @@ function isSlugOk(slug,data,nb){
 		}
 	}
 
-	console.log(slug_f+" IS THE LAST");
-	console.log(nb+" IS THE NUMBER");
-
 	if(status){
 		return slug_f;
 	}else{

@@ -17,6 +17,7 @@ app.start = app.listen = function(){
 }
 
 // Configure bodyparser
+app.use(bodyParser({limit: '5mb'}));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
