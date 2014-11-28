@@ -169,19 +169,19 @@
 			event.stopPropagation(); 
 		});
 
-		document.querySelector(".full").addEventListener("click", function() { 
-		    document.querySelector(".full").classList.add("hide");
-		    document.querySelector(".reduce").classList.remove("hide");
-		});
+		// document.querySelector(".full").addEventListener("click", function() { 
+		//     document.querySelector(".full").classList.add("hide");
+		//     document.querySelector(".reduce").classList.remove("hide");
+		// });
 
 		// document.querySelector(".reduce").addEventListener("click", function() { 
 		//     document.querySelector(".reduce").classList.add("hide");
 		//     document.querySelector(".full").classList.remove("hide");
 		// });
 
-		// document.querySelector("body").addEventListener('click', function(){
-		// 	document.querySelector(".songBg").classList.add("hide");
-		// });
+		document.querySelector("body").addEventListener('click', function(){
+			document.querySelector(".songBg").classList.add("hide");
+		});
 
 		function updateTextInput(val) {
 		    document.getElementById('songBar').value=val;
