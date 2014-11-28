@@ -1,6 +1,6 @@
 Boaaaard
 ===================
-Accéder au projet : [hetic.10.30.2.64.xip.io](hetic.10.30.2.64.xip.io)
+Accéder au projet : [boaaard.10.30.2.64.xip.io](boaaard.10.30.2.64.xip.io)
 
 ### Technologies utilisées
 
