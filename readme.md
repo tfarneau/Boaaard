@@ -24,3 +24,5 @@ Chrome extension, Gulp, SASS, svg
 - `npm install` dans le dossier `server/`
 - modifier la variable `SERVER_URL` (dans `js/app.min.js`) par votre url locale
 - modifier l'url de connexion à la socket dans le fichier `remote.html` (l.100, `io.connect('VOTRE_URL')`)
+- lancez le serveur (`gulp` dans `server/` ou `node server` dans `server/app`)
+- accédez au client (`client/`)
