@@ -1,0 +1,21 @@
+<div class="search-bar open" ng-controller="qCtrl" event>
+    <div class="over">
+        <div class="l-container margin-over">
+            <img data-src="img/icons/search.svg" include-svg class="icon">
+            <input type="search" placeholder="Search" ng-model="q" ng-change="qChange(q)">
+        </div>
+    </div>
+</div>
+
+<div class="boards-list">
+    <p>Search for « {{q}} »</p>
+    <ul ng-repeat="board in boards | filter:q">
+        <li class="board-preview">
+            <a href="#/board/{{board.slug}}">
+                <div class="board-preview-image" bg-img="{{board.posters.high.url}}"></div>
+                <h2 class="board-preview-title">{{board.title}}</h2>
+                <span class="board-preview-date">Septembre 10, 2014</span>
+            </a>
+        </li>
+    </ul>
+</div>

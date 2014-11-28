@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+	<title>Boaaard - Remote</title>
+	<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,400italic' rel='stylesheet' type='text/css'>
+
+	<link rel="stylesheet" href="../css/remote.css">
+	<style>
+        .icon.gradient path{
+            stroke: url("#gradient");
+        }
+        .icon.gradient path.fill{
+            fill: url("#gradient");
+        }
+    </style>
+</head>
+<body>
+
+	<svg height="150" width="400" version="1.1" baseProfile="full" xmlns="http://www.w3.org/2000/svg" style="position:absolute; z-index:-1;">
+        <defs>
+            <linearGradient id="gradient" x1="100%" y1="0%" x2="0%" y2="0%">
+            <stop offset="0%" style="stop-color:rgb(255,156,0);stop-opacity:1" />
+            <stop offset="100%" style="stop-color:rgb(255,57,0);stop-opacity:1" />
+            </linearGradient>
+        </defs>
+    </svg>
+
+	<header class="header">
+		CHAT
+	</header>
+
+	<div class="allMessage logged">
+		<section class="logPlease">
+			<span class="beforeLogin">
+					<p>Please login on desktop to tchat</p>
+			</span>
+		</section>
+
+		<section class="panel">
+			<ul id="chat"></ul>
+		</section>
+	</div>
+
+	<nav class="nav">
+		<div class="send ">
+			<form action="#" id="sendMessage">
+				<input type="text" placeholder="Type something" maxlength="140">
+				<button class="btnSubmit">
+					<img src="../img/icons/comment.svg" class="icon gradient">
+				</button>
+			</form>
+		</div>
+		<div class="controlers">
+	
+<!-- 			<div class="fullWidth"> 
+				<button class="width full">
+					<img src="../img/icons/fullscreen.svg" class="icon">
+				</button>
+				<button class="width reduce hide">
+					<img src="../img/icons/reduce.svg" class="icon">
+				</button>
+			</div> -->
+
+			<div class="videoControls">
+				<button class="previous">
+					<img src="../img/icons/previous.svg" class="icon">
+				</button>
+				<button class="playPause play">
+					<img src="../img/icons/play.svg" class="icon">
+				</button>
+				<button class="playPause pause hide">
+					<img src="../img/icons/pause.svg" class="icon">
+				</button>
+				<button class="next">
+					<img src="../img/icons/next.svg" class="icon">
+				</button>
+			</div>
+
+			<div class="songControl">
+				<button class="song">
+					<img src="../img/icons/speaker1.svg" class="speaker1 icon">
+					<img src="../img/icons/speaker2.svg" class="speaker2 icon see">
+					<img src="../img/icons/speaker3.svg" class="speaker3 icon">
+					<img src="../img/icons/speakerOff.svg" class="speakeroff icon">	
+				</button>
+
+				<div class="songBg hide">
+					<input id="songBar" type="range" min="0" max="100" value="100" step="1" onchange="updateTextInput(this.value);" />
+				</div>					
+			</div>
+
+		</div>
+	</nav>
+	<script type="text/javascript" src="../js/vendor/socket.io-1.2.0.js"></script> -->
+	<script type="text/javascript" src="../js/vendor/moment-with-locales.min.js"></script> -->
+	<script type="text/javascript" src="../js/vendor/svg-injector.min.js"></script> -->
+	<script>
+
+		// Inject SVG icons
+		var mySVGsToInject = document.querySelectorAll('img.icon');
+
+		SVGInjector(mySVGsToInject);
+
+		// Get elements
+		var chat = document.getElementById("chat");
+		var remote_id = location.pathname.split('/')[location.pathname.split('/').length-1];
+		var room_id = null;
+
+		// Connect socket
+		var socket = io.connect('hetic.192.168.0.11.xip.io:3000');
+		// var socket = io.connect('hetic.10.30.2.64.xip.io:3000');
+		// var socket = io.connect('10.30.2.143:3000');
+
+		// Connect the remote
+		socket.emit('connectRemote', remote_id);
+
+		// On connected
+		socket.on('connected', function(id){
+			room_id = id;
+		});
+
+		// Backward video
+		document.querySelector(".previous").addEventListener("click", function(){ 
+			socket.emit('sendControl', {
+				control : 'backwardVideo',
+				roomid : room_id
+			});	
+		});
+
+		// Play video
+		document.querySelector(".play").addEventListener("click", function(){ 
+			document.querySelector(".play").classList.add("hide");
+			document.querySelector(".pause").classList.remove("hide");
+			console.log('play');
+			socket.emit('sendControl', {
+				control : 'playVideo',
+				roomid : room_id
+			});
+		});
+
+		// Pause video
+		document.querySelector(".pause").addEventListener("click", function(){
+			document.querySelector(".pause").classList.add("hide");
+			document.querySelector(".play").classList.remove("hide");
+			console.log('pause');
+			socket.emit('sendControl', {
+				control : 'pauseVideo',
+				roomid : room_id
+			});
+		});
+
+		// Forward video
+		document.querySelector(".next").addEventListener("click", function(){ 
+			socket.emit('sendControl', {
+				control : 'forwardVideo',
+				roomid : room_id
+			});
+		});
+
+		// Change song
+		document.querySelector(".song").addEventListener("click", function(event){
+			document.querySelector(".songBg").classList.remove("hide");
+			event.stopPropagation(); 
+		});
+
+		document.querySelector(".songBg").addEventListener('click', function(event){
+			event.stopPropagation(); 
+		});
+
+		document.querySelector(".full").addEventListener("click", function() { 
+		    document.querySelector(".full").classList.add("hide");
+		    document.querySelector(".reduce").classList.remove("hide");
+		});
+
+		// document.querySelector(".reduce").addEventListener("click", function() { 
+		//     document.querySelector(".reduce").classList.add("hide");
+		//     document.querySelector(".full").classList.remove("hide");
+		// });
+
+		// document.querySelector("body").addEventListener('click', function(){
+		// 	document.querySelector(".songBg").classList.add("hide");
+		// });
+
+		function updateTextInput(val) {
+		    document.getElementById('songBar').value=val;
+		    if (val==0){
+		    	document.querySelector(".see").classList.remove("see");
+		    	document.querySelector(".speakeroff").classList.add("see");
+		    } else if (val > 0 && val<33) {
+		    	document.querySelector(".see").classList.remove("see");
+		    	document.querySelector(".speaker1").classList.add("see");
+		    } else if (val<66 ){
+		    	document.querySelector(".see").classList.remove("see");
+		    	document.querySelector(".speaker2").classList.add("see");
+		    } else {
+		    	document.querySelector(".see").classList.remove("see");
+		    	document.querySelector(".speaker3").classList.add("see");
+		    }
+		    socket.emit('sendControl', {
+		    	control : 'setVolumeVideo',
+		    	roomid : room_id,
+		    	volume : val
+		    });
+		}
+
+		// Send message
+		document.getElementById("sendMessage").addEventListener("submit", function(e){
+			e.preventDefault();
+			socket.emit('sendMessageToClient', {
+				message : this.getElementsByTagName('input')[0].value,
+				roomid : room_id
+			});
+			this.getElementsByTagName('input')[0].value = "";
+		});
+
+		// Display new message
+		socket.on('receiveMessageFromClient', function(data){
+			if(data.message.message)
+				addMessage(data.message);
+		});
+
+		var entityMap = {
+			"&": "&amp;",
+			"<": "&lt;",
+			">": "&gt;",
+			'"': '&quot;',
+			"'": '&#39;',
+			"/": '&#x2F;'
+		};
+
+		// Escape html
+		function escapeHtml(string) {
+			return String(string).replace(/[&<>"'\/]/g, function (s) {
+				return entityMap[s];
+			});
+		}
+
+		// Add message
+		function addMessage(message){
+			chat.innerHTML = chat.innerHTML + "<li><p><span class='pseudo'>" + message.pseudo + "</span><span class='time' data-time=" + message.date + ">" + moment(message.date, 'x').fromNow() + "</span></p><p class='message'>" + escapeHtml(message.message) + "</p></li>";
+		}
+		
+		var m = 0;
+
+		// Update moment
+		function updateMoment(){
+			var dates = document.getElementsByClassName('time');
+
+			m++;
+
+			Array.prototype.forEach.call(dates, function(_date, i){
+				var now = parseInt(_date.dataset.time)+1000*m;
+				_date.innerHTML = moment(parseInt(_date.dataset.time)).from(now);
+			});
+		}
+
+		setInterval(updateMoment, 1000);
+	</script>
+</body>
+</html>

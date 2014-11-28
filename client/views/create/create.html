@@ -1,0 +1,126 @@
+<section class="overlay-help" ng-class="{show : showHelp}">
+    <videoplayer mp4-src="videos/video.mp4" ogg-src="videos/video.ogv" webm-src="videos/video.webm" fallback="Pas de source !" class="video_wrapper" />
+</section>
+
+<div class="add-bar" ng-class="{open : isSubmit}" ng-hide="saved" event>
+    <div class="intro">
+	    <form ng-submit="validateYoutube();">
+	    	<button type="submit">
+	        	<img data-src="img/icons/round.svg" include-svg class="icon icon-large gradient">
+	        	<div ng-hide="startValidate || validate != null"><img data-src="img/icons/add-simple.svg" include-svg class="icon gradient"></div>
+	        	<div ng-class="{rotate : startValidate}" ><img data-src="img/icons/hourglass.svg" include-svg class="icon gradient"></div>
+	        	<div ng-class="{draw : validate == true}"><img data-src="img/icons/checked.svg" include-svg class="icon gradient"></div>
+	        	<div ng-class="{draw : validate == false}"><img data-src="img/icons/close-simple.svg" include-svg class="icon gradient"></div>
+	    	</button>
+	        <p>Create a new </p>
+	        <div class="logo">
+	            <svg>
+	                <defs>  
+	                    <linearGradient id="textgradient_2" x1="0%" x2="100%" y1="0%" y2="0%">  
+	                        <stop stop-color="#FF3900" offset="0%"/>  
+	                        <stop stop-color="#FF9C00" offset="100%"/>
+	                    </linearGradient>  
+	                </defs>
+	                <text x="0" y="31" font-family="Source Sans Pro" font-size="24" font-weight="600" fill="url(#textgradient_2)">boaaard</text>
+	            </svg>
+	        </div>
+	        <input type="text" placeholder="http://www.youtube.com/watch?v=XXXXXXXXXXX" ng-model="board.infos.url" required>
+	    </form>
+    </div>
+    <div class="over">
+        <div class="l-container margin-over">
+            <form ng-submit="create();">
+            	<button type="submit">
+            		<img data-src="img/icons/user.svg" include-svg class="icon">
+            	</button>
+		        <input type="email" placeholder="Enter your email" ng-model="board.infos.owner_email" focus="isSubmit" required>
+		    </form>
+        </div>
+    </div> 
+</div>
+
+<div class="board create" ng-class="{show : manageBoard}" ng-hide="saved">
+	
+	<div class="top-bar" ng-class="{open : manageBoard}">
+		<div class="l-container margin-over">
+			<div class="board-view" bg-img="{{thumbnail}}"></div>
+			<div class="board-infos">
+				<input type="text" ng-model="board.infos.name" class="board-title" placeholder="Enter a board title" focus="manageBoard" focus-next>
+				<input type="text" ng-model="board.infos.description" class="board-description" placeholder="Enter a description" focus-next>
+			</div>
+			<button class="btn btn-color3" ng-click="save()" ng-class="{'animated bounceIn' : board.infos.name && board.infos.description}">Save</button>
+		</div>
+	</div>
+
+	<section class="addblock" ng-class="{'opened' : addBlockOpened}" ng-click="addBlockOpened = false">
+
+		<section class="icons_container">
+			<div class="icon_container" ng-click="addBlock('type_twitteruser')">
+				<img src="img/icons/round.svg" include-svg class="icon gradient icon-s-large">
+				<img src="img/icons/twitter.svg" include-svg class="icon gradient mini">
+				<span class="icon_title">Twitter account</span>
+			</div>
+			<div class="icon_container" ng-click="addBlock('type_twitterfeed')">
+				<img src="img/icons/round.svg" include-svg class="icon gradient icon-s-large">
+				<img src="img/icons/twitter.svg" include-svg class="icon gradient mini">
+				<span class="icon_title">Twitter user feed</span>
+			</div>
+			<div class="icon_container" ng-click="addBlock('type_twittersearch')">
+				<img src="img/icons/round.svg" include-svg class="icon gradient icon-s-large">
+				<img src="img/icons/twitter.svg" include-svg class="icon gradient mini">
+				<span class="icon_title">Twitter search</span>
+			</div>
+			<div class="icon_container" ng-click="addBlock('type_wikipedia')">
+				<img src="img/icons/round.svg" include-svg class="icon gradient icon-s-large">
+				<img src="img/icons/wikipedia.svg" include-svg class="icon gradient mini">
+				<span class="icon_title">Wikipedia article</span>
+			</div>
+			<div class="icon_container" ng-click="addBlock('type_rssfeed')">
+				<img src="img/icons/round.svg" include-svg class="icon gradient icon-s-large">
+				<img src="img/icons/rss.svg" include-svg class="icon gradient mini">
+				<span class="icon_title">RSS feed</span>
+			</div>
+			<div class="icon_container" ng-click="addBlock('type_content')">
+				<img src="img/icons/round.svg" include-svg class="icon gradient icon-s-large">
+				<img src="img/icons/pencil.svg" include-svg class="icon gradient mini">
+				<span class="icon_title">Custom text</span>
+			</div>
+			<div class="icon_container" ng-click="addBlock('type_link')">
+				<img src="img/icons/round.svg" include-svg class="icon gradient icon-s-large">
+				<img src="img/icons/link.svg" include-svg class="icon gradient mini">
+				<span class="icon_title">Link</span>
+			</div>
+			<div class="icon_container" ng-click="addBlock('type_image')">
+				<img src="img/icons/round.svg" include-svg class="icon gradient icon-s-large">
+				<img src="img/icons/picture.svg" include-svg class="icon gradient mini">
+				<span class="icon_title">Picture</span>
+			</div>
+		</section>
+
+	</section>
+	
+	<section class="controls">
+		<button class="btn btn-color3 add-module" ng-click="openList();" ng-show="manageBoard">Add a module</button>
+		<button class="btn btn-color3 help-overlay-button add-module" ng-show="manageBoard" ng-click="openHelpVideo();">?</button>
+	</section>
+
+	<section class="blocks" gridster="gridsterOpts">
+    	<article gridster-item="blockMap" ng-repeat="block in board.blocks" class="block animated bounceIn" block ng-class="{'isEditing': block.isEdit}">
+    		<section class="block-wrapper">
+    			<ng-include src="getContentUrl(block.type)"/>
+    		</section>
+    	</article>
+	</section>
+</div>
+
+<div class="board board-success" ng-class="{'animated bounceIn' : saved}">
+
+	<button class="icon-container">
+		<img data-src="img/icons/round.svg" include-svg class="icon icon-x-large gradient">
+		<div><img data-src="img/icons/checked.svg" include-svg class="icon icon-m-large gradient"></div>
+	</button>
+
+	<h4>Congratulation ! <span>Your board was successfully created.</span></h4>
+
+	<p>You can now share the url with your audience : <a href="#/board/{{slug}}" class="btn btn-large btn-color3">http://www.boaaard.com/{{slug}}</a></p>
+</div>

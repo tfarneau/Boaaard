@@ -1,0 +1,87 @@
+// ----------------------
+// == Module/Icons
+// ----------------------
+
+.icon{
+    width:40px;
+    height:40px;
+    path{
+        stroke: #000;
+        fill: none;
+        stroke-width: 0.14em;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+    }
+    path.fill {
+        stroke-width: 0;
+        fill: #000;
+        &.red{
+            fill: red;
+        }
+        &.green{
+            fill: green;
+        }
+    }
+    &:not(.no-h):hover{
+        path{
+            stroke: url(#gradient);
+        }
+        path.fill{
+            fill: url(#gradient);
+        }
+    }
+}
+
+.icon-small{
+    height: 20px;
+    width: 20px;
+}
+
+.icon-large{
+    width:70px;
+    height:70px;
+    path{
+        stroke-width: 0.08em;
+    }
+}
+
+.icon-s-large{
+    width: 120px;
+    height: 120px;
+    path{
+        stroke-width: 0.04em;
+    }
+}
+
+.icon-m-large{
+    width:180px;
+    height: 180px;
+    path{
+        stroke-width:0.14em;
+    }
+}
+
+.icon-x-large{
+    width:360px;
+    height:360px;
+    path{
+        stroke-width:0.04em;
+    }
+}
+
+.icon.gradient{
+    path{
+        stroke: url(#gradient);
+    }
+    path.fill{
+        fill: url(#gradient);
+    }
+}
+
+.icon-container{
+    @include position(relative, 0 0 0 0);
+    div{
+        @include position(absolute, 0px 0px 0px 0px);
+        margin:auto;
+    }
+}

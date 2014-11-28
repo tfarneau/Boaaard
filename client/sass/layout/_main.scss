@@ -1,0 +1,197 @@
+// ----------------------
+// == Layout/Main
+// ----------------------
+
+.l-main {
+	@include position(relative, 0 0 0 0);
+	.search-bar, .add-bar{
+		width:100%;
+		height:105px;
+		margin:130px 0 0;
+		button{
+			@include inline-block();
+			vertical-align: top;
+			margin-top:4px;
+			margin-right:10px;
+		}
+		.intro{
+			p{
+				@include inline-block();
+				margin:0;
+				font-size:pxtoem(24);
+				font-weight:300;
+				color:$color-text2;
+				margin-right:1px;
+			}
+			input{
+				border:0;
+				border-bottom:1px solid $color4;
+				background: none;
+				@include border-radius(0);
+				@include inline-block();
+				vertical-align: bottom;
+				width:100%;
+				max-width:100%;
+				font-size:pxtoem(36);
+				font-weight:600;
+				padding: 0 20px 14px 81px;
+				height: 70px;
+				margin-top: -50px;
+				color:$color4;
+				outline:none;
+				@include placeholder();
+			}
+		}
+		.over{
+			height:105px;
+			@include position(absolute, 0px 0px 0px 0px);
+			width:0;
+			@include gradient-x(lighten($color2, 10%), lighten($color1, 10%));
+			@include transition(all 0.6s ease-in-out);
+			overflow:hidden;
+			.margin-over{
+				overflow:hidden;
+			}
+			.l-container{
+				@include position(relative, 0 0 0 0);
+				margin:0;
+			}
+			.icon{
+				height:105px;
+				vertical-align: middle;
+				margin-top:0;
+				@include position(absolute, 0px 0px 0px 0px);
+				path{
+					stroke: #FFF;
+				}
+			}
+			input{
+				@include inline-block();
+				margin:0;
+				outline:none;
+				background: none;
+				border:0;
+				@include calc(width, "100% - 100px");
+				margin-left:20px;
+				font-size:pxtoem(30);
+				font-weight:600;
+				height: 105px;
+				color:#FFF;
+				@include placeholder(#FFF);
+			}
+		}
+		&.open{
+			.over{
+				width:100%;
+			}
+		}
+	}
+	.add-bar{ 
+		button{
+			@include position(relative, 0 0 0 0);
+			div{
+				@include position(absolute, 0px 0px 0px 0px);
+				margin:16px auto;
+				&:not(:first-child):not(:nth-child(2)) .icon path{
+					display: none;
+				}
+				&.rotate{
+					.icon{
+						-webkit-animation: rotate 1s linear infinite;
+						animation: rotate 1s linear infinite;
+						path{
+							display: block !important;
+						}
+					}
+				}
+				&.draw{
+					.icon{
+						path{
+							stroke-dasharray: 92;
+  							stroke-dashoffset: 92;
+							display: block !important;
+							-webkit-animation: draw 0.6s linear forwards;
+							animation: draw 0.6s linear forwards;
+						}
+					}
+				}
+			}
+		}
+		.intro input{
+			color:$color5;
+			font-size:pxtoem(30);
+		}
+		.over{
+			input{
+				@include placeholder(darken(rgba($color2, 0.7), 20%));
+			}
+		}
+	}
+}
+
+// OVERLAY
+
+.overlay-help.show{
+	opacity: 1;
+	position: fixed;
+	visibility: visible;
+}
+
+.overlay-help{
+	opacity: 0;
+	transition: all 0.3s;
+	visibility: hidden;
+
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,0.8);
+	z-index: 999;
+	display: table;
+
+	top: 0 !important;
+	left: 0 !important;
+	
+	.close-overlay-help{
+		margin-left: 5%;
+		color: #FFF;
+		font-weight: 800;
+		font-size: 18px;
+	}
+	.close-overlay-help:hover{
+		cursor:pointer;
+	}
+
+	.video_wrapper{
+		display: table-cell;
+		vertical-align: middle;
+		width: 100%;
+		height: 100%;
+	}
+
+	// Video player
+	video{/*opacity:0;-webkit-transition:opacity 5s;*/display:block;margin:0 auto;width:100%;}
+	/*video.play{opacity:1;}*/
+
+	.video_container{
+		position: relative;
+		width: 90%;
+		left: 5%;
+	}
+	#progressBar{width:80%;height:8px;border-radius:4px;border:1px solid #000;position:absolute;bottom:20px;left:10%;opacity:.6;z-index:6;}
+	#progressBar span{border-top-left-radius:2px;border-bottom-left-radius:2px;height:6px;background-color:#000;display:inline-block;position:absolute;top:1px;}
+
+	#progressBar .progress{z-index:7;}
+	#progressBar .buffer{opacity:.5;}
+
+	#button{position:absolute;top: 0;left: 0;right: 0;bottom: 0;margin:auto;z-index:2;height:200px;width:200px;border:10px solid #000;border-radius:200px;opacity:.5;text-align:center;background:transparent;transition:opacity .2s ease, -webkit-transform .2s ease;}
+	#button.off{-webkit-transform:scale(4);opacity:0;}
+	#button.loading{-webkit-animation: loading 1s infinite linear;}
+	#button span{display:inline-block;height:100px;width:40px;background:#000;margin:2.4em 0.5em 0 0.5em;}
+
+	@-webkit-keyframes loading {
+	    0% {-webkit-transform: rotate(0deg);}
+	    100% {-webkit-transform: rotate(360deg);}
+	}
+
+}

@@ -1,0 +1,76 @@
+<section class="board">
+	
+	<div class="top-bar" ng-show="topBar">
+		<div class="l-container margin-over">
+			<div class="board-view"></div>
+			<div class="board-infos">
+				<h3 class="board-title">{{board.infos.name}}</h3>
+				<p class="board-description">{{board.infos.description}}</p>
+			</div>
+		</div>
+	</div>
+
+	<section class="top">
+		<h3 class="board-title">{{board.infos.name}}</h3>
+		<p class="board-description">{{board.infos.description}}</p>
+		<div class="board-social">
+			<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.boaaard.com/{{slug}}" data-text="Check out this board" data-hashtags="boaaard">Tweet</a>
+			<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+		</div>
+
+		<div class="video">
+			<youtube-video video-id="board.infos.video_id" player-vars="{ showinfo : 0, iv_load_policy : 3, rel : 0 }" player="board.player" class="board-video"></youtube-video>
+		</div>
+		<aside class="board-aside">
+			<div class="aside-title">
+				<span>Chat</span>
+				<div class="remote" ng-click="remote.message.url ? openLink(remote.message.url) : newRemote()" ng-class="{allow : remote.message.url}">
+					<div class="connected" ng-show="remote.connected">
+						<img src="img/icons/connected.svg" include-svg class="icon no-h">
+					</div>
+					<div class="unconnected" ng-hide="remote.connected">
+						<img src="img/icons/unconnected.svg" include-svg class="icon no-h">
+					</div>
+					<div class="message">
+						<span ng-hide="remote.message.content">Connect a remote</span>
+						<span class="content" ng-class="{'animated' : remote.message.content}">{{remote.message.content}} {{remote.message.url.replace('http://', '')}}</span>
+					</div>
+					<qrcode data="{{remote.message.url}}" href="{{remote.message.url"></qrcode>
+				</div>
+			</div>
+			<div class="connect" ng-hide="connected">
+				<p class="error" ng-class="{'animated bounceIn' : alreadyuse}">Pseudo already used !</p>
+				<form ng-submit="connect()">
+					<input type="text" placeholder="Pseudo" ng-model="username">
+					<button type="submit" class="btn btn-gradient"><span>Connexion</span></button>
+				</form>
+			</div>
+			<div class="chat" ng-show="connected">
+				<div perfect-scrollbar suppress-scroll-x="true" class="chat-list" scroll-glue>
+					<ul>
+						<li ng-repeat="message in messages" ng-if="message.message" ng-class="{uniq : !message.pseudo && !message.date}">
+							<p>
+								<span ng-if="message.pseudo" class="username">{{message.pseudo}}</span> 
+								<span ng-if="message.date" class="date">{{message.date | fromNow}}</span> 
+								<span class="message">{{message.message}}</span>
+							</p>
+						</li>
+					</ul>
+				</div>
+				<form ng-submit="addMessage(newMessage)" class="add-message">
+					<input type="text" placeholder="Type something..." ng-model="newMessage">
+					<button type="submit"><img src="img/icons/comment.svg" include-svg class="icon gradient"></button>
+				</form>
+			</div>
+		</aside>
+	</section>
+
+	<section class="blocks" gridster="gridsterOpts">
+    	<article gridster-item="blockMap" ng-repeat="block in board.blocks" class="block" block ng-class="{'isEditing': block.isEdit}">
+    		<section class="block_wrapper">
+    			<ng-include src="getContentUrl(block.type)"/>
+    		</section>
+    	</article>
+    </section>
+
+</section>

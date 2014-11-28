@@ -1,0 +1,79 @@
+// ----------------------
+// == Module/Button
+// ----------------------
+
+button{
+    background: none;
+    border:none;
+    outline:none;
+    margin:0;
+    padding:0;
+}
+
+.btn {
+    @include border-radius(4px);
+    @include inline-block();
+    padding: .2em .7em;
+    border: 0;
+    text-align: center;
+    cursor: pointer;
+    padding:5px 30px;
+    max-height:40px;
+    outline:0;
+    background: none;
+}
+
+.btn-large{
+    max-height:70px;
+    padding:10px 30px;
+}
+
+@mixin btn($color) {
+    @extend .btn;
+    color: $color;
+    border-color:$color;
+    border-width:2px;
+    border-style:solid;
+}
+
+.btn-color1 {
+    @include btn($color1);
+}
+.btn-color2 {
+    @include btn($color2);
+}
+.btn-color3 {
+    @include btn($color3);
+}
+.btn-color4 {
+    @include btn($color4);
+}
+.btn-gradient {
+    @extend .btn;
+    border:0;
+    color: $color-text;
+    border-left: 3px solid $color2;
+    border-right:3px solid $color1;
+    padding:0 !important;
+    background-image: 
+        linear-gradient(left, $color2, $color1),
+        linear-gradient(left, $color2, $color1);
+    background-size:100% 3px;
+    background-position:0 0, 0 100%;
+    background-repeat:no-repeat;
+    font-weight:600;
+    line-height: 40px;
+    span{
+        line-height: 34px;
+        padding:0 30px;
+        font-weight:600;
+        background: -webkit-gradient(linear, left top, right top, color-stop(0%,$color2), color-stop(100%,$color1)); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(left, $color2 0%,$color1 100%); /* Chrome10+,Safari5.1+ */
+        @include border-radius(2px);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        position: relative;
+        z-index: 1;
+        display: inline-block;
+    }
+}

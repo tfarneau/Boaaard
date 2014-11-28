@@ -1,0 +1,37 @@
+// ----------------------
+// == Layout/Constrained
+// ----------------------
+
+.l-container {
+    max-width: $wrapper-width;
+    // width: $wrapper-width !important;
+    margin: 0 auto;
+}
+
+@media screen and (max-width: 1280px) {
+	.l-container{
+		max-width: 980px !important;
+	}
+	.blocks{
+		width: 980px !important;
+	}
+	.block{
+		min-width:326px !important;
+		width:326px !important;
+		height:326px !important;
+	}
+	.board-video{
+		width: 654px !important;
+	}
+	.board-aside{
+		min-width:326px !important;
+		width:326px !important;
+	}
+	.board-preview-image{
+		height:200px !important;
+	}
+	.board-preview a:before{
+		height:200px !important;
+		line-height: 200px !important;
+	}
+}

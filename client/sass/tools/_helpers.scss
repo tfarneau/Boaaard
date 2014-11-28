@@ -1,0 +1,27 @@
+// ----------------------
+// == Tools/Helpers
+// ----------------------
+
+// = Alignment
+// -----------------------------
+
+.align-left {
+    display: inline;
+    float: left;
+}
+.align-right {
+    display: inline;
+    float: right;
+}
+.align-center {
+    clear: both;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.txt-left{
+  text-align:left;
+}
+.txt-right{
+  text-align:right;
+}

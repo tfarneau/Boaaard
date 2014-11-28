@@ -1,0 +1,105 @@
+<!DOCTYPE HTML>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" ng-app="App"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title ng-bind="title">Boaaard</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/png" href="img/favicon/icon128.png" />
+
+        <!-- build:css css/min.css -->
+        <link rel="stylesheet" href="css/main.css">
+        <style>
+            .icon:not(.no-h):hover path{
+                stroke: url("#gradient");
+            }
+
+            .icon:not(.no-h):hover path.fill{
+                fill: url("#gradient");
+            }
+            .icon.gradient path{
+                stroke: url("#gradient");
+            }
+            .icon.gradient path.fill{
+                fill: url("#gradient");
+            }
+        </style>
+        <!-- endbuild -->
+
+        <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+    </head>
+    <body ng-controller="AppCtrl" event>
+        <!--[if lt IE 9]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <svg height="150" width="400" version="1.1" baseProfile="full" xmlns="http://www.w3.org/2000/svg" style="position:absolute; z-index:-1;">
+            <defs>
+                <linearGradient id="gradient" x1="100%" y1="0%" x2="0%" y2="0%">
+                <stop offset="0%" style="stop-color:rgb(255,156,0);stop-opacity:1" />
+                <stop offset="100%" style="stop-color:rgb(255,57,0);stop-opacity:1" />
+                </linearGradient>
+            </defs>
+        </svg>
+
+        <header class="l-header" ng-class="{full : fullHeader}">
+            <div class="l-container">
+                
+                <h1 class="logo text-gradient">
+                    <a href="#/">
+                    <svg>
+                        <defs>  
+                            <linearGradient id="textgradient" x1="0%" x2="100%" y1="0%" y2="0%">  
+                                <stop stop-color="#FF3900" offset="0%"/>  
+                                <stop stop-color="#FF9C00" offset="100%"/>  
+                            </linearGradient>  
+                        </defs>
+                        <text x="0" y="37" font-family="Source Sans Pro" font-size="24" font-weight="600" fill="url(#textgradient)">boaaard</text>
+                    </svg>
+                    </a>
+                </h1>
+
+                <div class="nav">
+                    <a href="#/create" class="btn btn-outer btn-gradient"><span>Create board</span></a>
+                </div>
+
+                <div class="search" ng-controller="qCtrl">
+                    <form ng-submit="search()">
+                        <input type="search" placeholder="Search" ng-model="q">
+                    </form>
+                </div>
+
+            </div>
+        </header>
+
+        <div class="l-main">
+            <div class="l-container" ng-view>
+                
+            </div>
+        </div>
+
+        <footer class="l-footer">
+                        
+        </footer>
+
+        <!-- build:js js/min.js -->
+        <script src="js/vendor.min.js"></script>
+        <script src="js/app.min.js"></script>
+        <!-- endbuild -->
+
+        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+        <script>
+            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+            e.src='//www.google-analytics.com/analytics.js';
+            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+            ga('create','UA-XXXXX-X');ga('send','pageview');
+        </script>
+    </body>
+</html>

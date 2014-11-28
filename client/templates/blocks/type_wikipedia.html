@@ -1,0 +1,31 @@
+<section class="block_container">
+	<div class="block_edit" ng-click="block.isEdit = !block.isEdit" ng-show="editMode">EDIT</div>
+	<header class="block_title">{{block.title}}</header>
+	<section class="block_content" perfect-scrollbar suppress-scroll-x="true">
+		<h3 class="content_title">About "{{block.var}}"</h3>
+		<p class="content_text">{{block.content.desc}}</p>
+	</section>
+</section>
+<section class="block_backface" ng-show="editMode">
+	<header class="block_title">Block edition</header>
+	<header class="block_delete" ng-click="deleteBlock($index)">
+		<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" class="icon icon-small">
+		  <path d="M15.2,30.8l-1-17.9 M24.8,30.8l1-17.9 M20,30.8V12.8"/>
+		  <path class="emphasize" d="M29.2,34.5H10.9 L9.4,9h21.2L29.2,34.5z M34.5,9h-3.6 M9.2,9H5.5 M24.5,8.7V5.5h-9.1v3.2"/>
+		</svg>
+	</header>
+	<section class="block_content">
+		<article class="inputblock">
+			<p>Block title</p>
+			<input type="text" placeholder="Block title" ng-model="block.title">
+		</article>
+		<article class="inputblock">
+			<p>Wikipedia article's title</p>
+			<input type="text" placeholder="The title of your custom content" ng-model="block.var" ng-enter="saveBlock($index)">
+		</article>
+	</section>
+	<div ng-click="saveBlock($index)" class="block_save" ng-class="{'opened': block.isLoading}">
+		<p>SAVE</p>
+		<blockspinner/>
+	</div>
+</section>

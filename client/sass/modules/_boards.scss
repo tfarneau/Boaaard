@@ -1,0 +1,410 @@
+// ----------------------
+// == Module/boards
+// ----------------------
+
+.board{
+	width:100%;
+	margin-top:90px;
+	.board-title{
+		font-size:pxtorem(30);
+		font-weight:700;
+		margin:0;
+	}
+	.board-description{
+		font-weight:300;
+		font-style:italic;
+		font-size:pxtorem(18);
+		color:$color-text2;
+		margin:0 0 16px 0;
+		line-height: pxtoem(24);
+	}
+	.board-social{
+		margin-bottom:20px;
+	}
+	.top{
+		font-size:0;
+		@include clearfix();
+		margin-bottom: 40px;
+		@include position(relative);
+		.board-video{
+			width: $size_onecol*2;
+			min-height: 450px;
+			height: 450px;
+			float:left;
+		}
+		.board-aside{
+			min-width:$size_onecol;
+			width:$size_onecol;
+			min-height:450px;
+			max-height:450px;
+			height:450px;
+			font-size:pxtorem(16);
+			border:1px solid $color4;
+			float:left;
+			@include position(relative);
+			.aside-title{
+				@include position(absolute, 0px 0px 0 0px);
+				height:50px;
+				padding:0 10px 0 20px;
+				line-height: 50px;
+				border-bottom:1px solid $color4;
+				span, .connected, .unconnected{
+					margin:0;
+					float:left;
+					@include inline-block();
+					height: 100%;
+				}
+				> span{
+					font-weight:600;
+					text-transform: uppercase;
+				}
+				.remote{
+					cursor:pointer;
+					@include inline-block();
+					height: 100%;
+					width:70%;
+					float:right;
+					@include position(relative);
+					&.allow:hover qrcode{
+						display:block;
+					}
+					qrcode{
+						display:none;
+						@include position(absolute, 50px -39px 0 0);
+						width:120px;
+						height:120px;
+						background: white; 
+						@include border-radius(100%);
+						text-align: center;
+						line-height: 166px;
+						z-index: 9;
+						border:4px solid $color4;
+					}
+					span, .connected, .unconnected{
+						float:right;
+						.icon{
+							height:100%;
+						}
+					}
+					.unconnected{
+					}
+					.message{
+						@include position(relative);
+						float:right;
+						@include calc(width, "100% - 50px");
+						margin-right:10px;
+						.content{
+							@include position(absolute, 0px 0px 0px 0px);
+							text-align: right;
+							display: none;
+							background: white;
+							@include calc(height, "100% - 1px");
+						}
+					}
+				}
+			}
+			.connect{
+				@include position(absolute, 0px 0px 0px 0px);
+				margin:auto;
+				height:90px;
+				input, .btn{
+					display: block;
+					margin:auto;
+					text-align: center;
+				}
+				input{
+					margin-top:25px;
+				}
+				.btn{
+					margin-top:10px;
+				}
+				.error{
+					text-align: center;
+					margin:0;
+					display: none;
+				}
+			}
+			.chat{
+				height: 100%;
+				margin-top:50px;
+				.title{
+					text-transform: uppercase;
+					margin:0;
+					padding:0 20px;
+					height:50px;
+					line-height: 50px;
+					font-weight:600;
+				}
+			}
+			.chat-list{
+				@include calc(height, "100% - 100px");
+				overflow:hidden;
+				background: #FFF;
+				border-bottom:1px solid $color4;
+				@include position(relative);
+				li{
+					display: block;
+					list-style:none;
+					padding:6px 20px;
+					&:nth-child(odd){
+						background: $color6;
+					}
+					.username{
+						font-weight:600;
+						margin-right:6px;
+					}
+					.date{
+						font-size:pxtoem(14);
+						font-style:italic;
+						color: $color-text2;
+					}
+					.message{
+						display: block;
+						@include position(relative);
+						word-wrap: break-word;
+					}
+					&.uniq{
+						background: darken($color6, 6%);
+						padding:2px 20px;
+						p{
+							margin:10px 0px;
+						}
+					}
+					&:not(.uniq){
+						.message{
+							margin-top:10px;
+							padding-top:10px;
+							&:before{
+								content:"";
+								@include position(absolute, 0px 0px 0 0px);
+								width:80px;
+								height:1px;
+								background: $color4;
+								display: block;
+							}
+						}
+					}
+				}
+			}
+			.add-message{
+				height:50px;
+				@include position(absolute, 0 0px 0px 0px);
+				@include clearfix();
+				input{
+					@include border-radius(0);
+					border:0;
+					border-right:1px solid $color4;
+					@include calc(width, "100% - 70px");
+					height:100%;
+					float:left;
+				}
+				button{
+					width:70px;
+					height:100%;
+					float:left;
+					.icon{
+						@include inline-block();
+					}
+				}
+			}
+		}
+	}
+	.top-bar{
+		height:105px;
+		width:0;
+		background: $color5;
+		@include position(absolute, 0px 0px 0px 0px);
+		@include transition(all 0.6s ease-in-out);
+		overflow:hidden;
+		.margin-over{
+			@include position(relative, 0 0 0 0);
+			margin:0;
+			color:#FFF;
+			height: 100%;
+			overflow:hidden;
+			.board-infos{
+				@include calc(width, "100% - 220px");
+				@include position(absolute, 0px 0 0px 220px);
+				height: 56px;
+				margin:auto;
+				.board-title{
+					line-height: pxtoem(16);
+					@include calc(width, "100% - 200px");
+					float:left;
+				}
+				.board-description{
+					font-size:pxtoem(20);
+					@include calc(width, "100% - 200px");
+					float:left;
+				}
+				input{
+					background: none;
+					border:none;
+					height:auto;
+					@include border-radius(0);
+					color:#FFF;
+					display: block;
+					float:none !important;
+					overflow:hidden;
+				}
+			}
+			.board-view{
+				height:100%;
+				width:200px;
+				overflow:hidden;
+			}
+			.btn{
+				display:none;
+				@include position(absolute, 0px 0px 0px 0);
+				margin:auto;
+			}
+		}
+		&.open{
+			width:100%;
+		}
+	}
+	&.create{
+		z-index: -1;
+		margin-top:0;
+		.top-bar .l-container .board-infos{
+			height: 66px;
+		}
+		.controls{
+			@include clearfix();
+			.add-module{
+				margin:30px 0;
+				margin-left:30px;
+				float:right;
+			}
+		}
+		.spinner{
+			opacity: 0;
+			width: 0;
+			height: 0;
+			transition:opacity 0.5s 0.25s !important;
+		}
+		.block-add{
+			display: none;
+			border:1px solid $color4;
+			font-size:pxtoem(36);
+			font-weight:600;
+			color:$color3;
+			text-align: center;
+			cursor:pointer;
+			.icon{
+				path{
+					stroke: $color3;
+				}
+				&:hover path{
+					stroke: $color3;
+				}
+			}
+			p{
+				margin:10px;
+			}
+			.block-wrapper{
+				display:table-cell;
+				vertical-align: middle;
+				width:auto;
+				height:auto;
+				@include position(relative, 0 0 0 0);
+			}
+			&.show{
+				display:table;
+			}
+		}
+		&.show{
+			z-index:0;
+		}
+	}
+}
+
+.boards-list{
+	@include clearfix();
+	margin-top:90px;
+	p{
+		text-transform: uppercase;
+		font-size:pxtoem(20);
+		color:$color4;
+		font-weight:600;
+	}
+}
+
+.board-preview{
+	width:25%;
+	float:left;
+	margin-bottom:50px;
+	a{
+		display: block;
+		@include position(relative);
+		&:before{
+			content:"see board";
+			color:white;
+			font-weight:700;
+			text-align: center;
+			font-size:pxtoem(14);
+			text-transform:uppercase;
+			letter-spacing: pxtoem(1.2);
+			background: rgba(0,0,0,0.5);
+			@include position(absolute, 0px 0px 0 0px);
+			height:250px;
+			line-height: 250px;
+			opacity:0;
+			@include transition();
+		}
+		&:hover:before{
+			opacity:1;
+		}
+	}
+	.board-preview-image{
+		width:100%;
+		height:250px;
+		display: block;
+		margin-bottom:10px;
+		background-position:center;
+		background-size: 150%;
+	}
+	.board-preview-author{
+		font-style:italic;
+	}
+	.board-preview-title{
+		font-weight:700;
+		font-size:pxtoem(24);
+		color:$color-text2;
+		margin:0;
+		line-height: pxtoem(22);
+	}
+	.board-preview-date{
+		color:$color4;
+		font-size:pxtoem(14);
+	}
+	.board-preview-like{
+		color:$color1;
+		.icon{
+			vertical-align: middle;
+			margin-top:-1px;
+		}
+	}
+}
+
+.board-success{
+	margin:90px auto;
+	text-align:center;
+	display:none;
+	.icon-container div{
+		margin:86px auto;
+	}
+	h4{
+		font-size:pxtoem(24);
+		span{
+			font-weight:400;
+		}
+	}
+	p{
+		font-size:pxtoem(18);
+		font-style:italic;
+	}
+	a{
+		margin-left:10px;
+	}
+}

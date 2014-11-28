@@ -1,0 +1,41 @@
+<div class="search-bar" ng-controller="qCtrl" ng-class="{open : isSubmit}" event>
+    <div class="intro">
+        <form ng-submit="search();">
+            <button type="submit">
+                <img data-src="img/icons/search.svg" include-svg class="icon gradient icon-large">
+            </button>
+            <p>Welcome to </p>
+            <div class="logo">
+                <svg>
+                    <defs>  
+                        <linearGradient id="textgradient_2" x1="0%" x2="100%" y1="0%" y2="0%">  
+                            <stop stop-color="#FF3900" offset="0%"/>  
+                            <stop stop-color="#FF9C00" offset="100%"/>  
+                        </linearGradient>  
+                    </defs>
+                    <text x="0" y="31" font-family="Source Sans Pro" font-size="24" font-weight="600" fill="url(#textgradient_2)">boaaard</text>
+                </svg>
+            </div>
+            <input type="search" placeholder="Search something" ng-model="q">
+        </form>
+    </div>
+    <div class="over">
+        <div class="l-container margin-over">
+            <img data-src="img/icons/search.svg" include-svg class="icon">
+            <input type="search" placeholder="Search" ng-model="q">
+        </div>
+    </div>
+</div>
+
+<div class="boards-list">
+    <p>Last board</p>
+    <ul ng-repeat="board in boards">
+        <li class="board-preview">
+            <a href="#/board/{{board.slug}}">
+                <div class="board-preview-image" bg-img="{{board.posters.high.url}}"></div>
+                <h2 class="board-preview-title">{{board.title}}</h2>
+                <span class="board-preview-date">Septembre 10, 2014</span>
+            </a>
+        </li>
+    </ul>
+</div>

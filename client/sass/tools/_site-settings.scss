@@ -1,0 +1,71 @@
+@charset "UTF-8";
+
+// ----------------------
+// == Site settings
+// ----------------------
+
+// = Fonts
+// -----------------------------
+$font1: 'Source Sans Pro', Helvetica, Arial, sans-serif;
+
+// = Colors
+// -----------------------------
+
+// Graphic chart
+
+$color1: #FF9C00;
+$color2: #FF3900;
+$color3: #979797;
+$color4: #D1D1D1;
+$color5: #222222;
+$color6: darken(#FAFAFA, 2%);
+
+$color-gradient-bg: #F5F5F5;
+
+// Text
+$color-text: #FD933E;
+$color-text2: #5C5C5C;
+$color-subtext: lighten(#000, 70%);
+
+// link
+$color-link: #000;
+$color-link2: #fff;
+$color-link-hover: darken($color-link, 10%);
+$color-link2-hover: darken($color-link2, 10%);
+
+// Social
+$color-facebook : #3b5998;
+$color-twitter : #01adef;
+$color-google : #dd4b39;
+$color-instagram : #3f729b;
+
+// Mixin Placeholder
+$color-mixin-placeholder: $color4;
+
+// Selection
+$color-selection: $color1;
+
+// = Grid
+// -----------------------------
+
+// Max width wrapper
+$wrapper-width: pxtoem(1200);
+
+// Size colonne
+$size_onecol : 400px;
+
+// = Prefix
+// -----------------------------
+
+$prefix-for-webkit:    true !default;
+$prefix-for-mozilla:   true !default;
+$prefix-for-microsoft: true !default;
+$prefix-for-opera:     true !default;
+$prefix-for-spec:      true !default; // required for keyframe mixin
+
+// = Responsive
+// -----------------------------
+
+// $width-large: pxtoem(1200); // 1200/16
+// $width-medium: pxtoem(980); // 992/16
+// $width-small: pxtoem(768); // 768/16

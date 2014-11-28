@@ -1,0 +1,65 @@
+// ----------------------
+// == Module/alerts
+// ----------------------
+
+.alert{
+	font-size:pxtoem(14);
+	padding:10px 30px 10px 60px;
+	text-align: left;
+	margin-bottom:10px;
+	@include border-radius();
+	@include position(relative);
+	display: none;
+	.message{
+		line-height: normal;
+		margin:0;
+	}
+	.alert-icon{
+		font-size: pxtoem(24);
+		@include position(absolute, 50% 0 0 20px);
+		margin-top:-12px;
+	}
+	.fa-close{
+		font-size:pxtoem(18);
+		@include position(absolute, 50% 20px auto auto);
+		margin-top:-8px;
+		cursor:pointer;
+	}
+}
+
+@mixin alert($color) {
+    @extend .alert;
+	color: darken($color, 50%);
+    background-color:$color;
+    .fa-close{
+    	color: darken($color, 10%);
+    	&:hover{
+			color: darken($color, 10%) !important;
+		}
+    }
+}
+
+.alert-info{
+	@include alert(darken($color3, 8%));
+	.alert-icon:before{
+		content:"\f05a";
+	}
+}
+
+.alert-error{
+	@include alert(darken($color2, 8%));
+	.alert-icon:before{
+		content:"\f06a";
+	}
+}
+
+.alert-success{
+	@include alert(darken($color1, 8%));
+	.alert-icon:before{
+		content:"\f06a";
+	}
+}
+
+.in{
+	display:block;
+}
